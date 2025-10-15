@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación Expandible</title>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .accordion {
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .accordion-item {
+            border: 1px solid #ddd;
+            margin-bottom: 5px;
+            border-radius: 4px;
+        }
+
+        .accordion-header {
+            background-color: #f4f4f4;
+            padding: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .accordion-header:hover {
+            background-color: #e4e4e4;
+        }
+
+        .accordion-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .accordion-content.active {
+            padding: 15px;
+            max-height: 500px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bienvenido a mi Página Principal</h1>
+        <p>Esta presentación indica, profe, que esta página es la principal desde donde va a visitar las otras tareas. Clic en las diferentes secciones para visitar las actividades.</p>
+    </div>
+
+    <div class="accordion"> 
+        <div class="accordion-item">
+            <div class="accordion-header">Clase practica 1 Actividad 1</div>
+            <div class="accordion-content">
+                <iframe src="Clase practica 1/Actividad 1/Curriculum Vitae.html" id="content-frame"></iframe>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <div class="accordion-header">
+                <div class="accordion-content">
+                    <iframe src="Clase practica 1/Actividad 2/Pagina de servicio.html" id="content-frame" frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.accordion-header').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const isActive = content.classList.contains('active');
+                
+                // Close all sections
+                document.querySelectorAll('.accordion-content').forEach(item => {
+                    item.classList.remove('active');
+                });
+
+                // Open clicked section if it wasn't active
+                if (!isActive) {
+                    content.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

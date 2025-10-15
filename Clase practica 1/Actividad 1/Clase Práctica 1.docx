@@ -18,7 +18,9 @@
             </ul>
         </nav>
     </div>
-
+    <div class="foto">
+    <img src="width_360.webp" alt="imagen de Zhen Hu">
+    </div>
     </header>
 
     <div style="width: 50%;" class="container">
