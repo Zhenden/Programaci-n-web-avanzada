@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Enlaces y Pasatiempos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+        }
+        
+        h1 {
+            color: #764ba2;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+        
+        h2 {
+            color: #667eea;
+            margin: 30px 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .social-section {
+            background: #f8f9ff;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .social-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .social-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .hobbies-section {
+            background: #fff9f8;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid #ff6b6b;
+        }
+        
+        .hobbies-list {
+            list-style-type: none;
+            margin-left: 20px;
+        }
+        
+        .hobbies-list li {
+            padding: 12px 0;
+            font-size: 1.1rem;
+            position: relative;
+            padding-left: 40px;
+        }
+        
+        .hobbies-list li:before {
+            content: "★";
+            color: #ff6b6b;
+            font-size: 1.3rem;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .hobbies-list li:nth-child(2):before {
+            content: "🎵";
+        }
+        
+        .hobbies-list li:nth-child(3):before {
+            content: "📚";
+        }
+        
+        .hobbies-list li:nth-child(4):before {
+            content: "🚴";
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: white;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mis Enlaces y Pasatiempos</h1>
+        
+        <div class="social-section">
+            <h2>Mi Red Social Favorita</h2>
+            <p>Visita mi red social favorita para ver videos y mantenerme informado</p>
+            <a href="https://www.youtube.com" target="_blank" class="social-link">
+                Visitar YouTube
+            </a>
+        </div>
+        
+        <div class="hobbies-section">
+            <h2>Mis Pasatiempos</h2>
+            <p>Estas son algunas de las actividades que disfruto en mi tiempo libre:</p>
+            <ul class="hobbies-list">
+                <li>Programación en general</li>
+                <li>Escuchar música y tocar guitarra</li>
+                <li>Jugar videojuegos (bastante)</li>
+                <li>Salir a caminar y hacer ejercicio</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>Ejercicio 2 - Enlaces y Listas <br> Zhen Axel Hu Fernández</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi primera página web</title>
+</head>
+<style>
+    * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #2575fc;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        p {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin: 20px 0;
+            color: #444;
+        }
+        
+        .name {
+            background-color: #f0f8ff;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 5px solid #2575fc;
+            font-weight: bold;
+            margin-top: 30px;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            color: white;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .emoji {
+            font-size: 2rem;
+            margin: 0 10px;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            p {
+                font-size: 1.1rem;
+            }
+        }
+
+        footer {
+            text-align: center;
+            bottom: 0;
+            color: white;
+            font-size: 0.9rem;
+        }
+</style>
+<body>
+    <div class="container">
+        <h1>Hola, mundo! </h1>
+        <p>¡Bienvenido a mi primera página web!</p>
+        <p>Esta página ha sido creada como parte de un ejercicio para aprender HTML básico.</p>
+        <div class="name">
+            <p>Mi nombre es: <strong>Zhen Axel Hu Fernández</strong></p>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>Ejercicio 1 - Hola mundo <br> Zhen Axel Hu Fernández</p>
+    </div>
+</body>
+</html>

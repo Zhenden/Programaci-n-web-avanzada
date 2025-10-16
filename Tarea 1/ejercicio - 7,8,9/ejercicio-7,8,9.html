@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barra de Navegación responsiva</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .container-flex {
+            display: flex;
+            flex-direction: row;
+            align-items: left;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            max-height: 900px;
+        }
+
+        .container-flex img {
+            width: 250px;
+            height: 250px;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            object-fit: cover;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        /* Efecto al hacer clic */
+        .nav-links a:active {
+            color: #fff;
+            background: #667eea;
+            transform: scale(0.95);
+        }
+
+        /* Línea inferior para enlaces activos */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #667eea;
+            transition: width 0.2s ;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f5f5f5;
+            color: #555;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 18px;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-links a:active {
+            transform: scale(0.9);
+        }
+
+        /* Colores específicos para cada red social */
+        .social-links a.facebook:hover { background: #3b5998; color: white; }
+        .social-links a.twitter:hover { background: #1da1f2; color: white; }
+        .social-links a.instagram:hover { 
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+            color: white;
+        }
+        .social-links a.linkedin:hover { background: #0077b5; color: white; }
+
+        /* Secciones de ejemplo */
+        .section {
+            background: white;
+            margin: 40px 0;
+            padding: 60px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin-bottom: -10px;
+            font-size: 22px;
+        }
+
+        .section p {
+            line-height: 1.6;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: white;
+            background: rgba(0, 0, 0, 0.2);
+            margin-top: 50px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .section {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="#" class="logo">Zhenduh Web</a>
+            
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#acerca">Acerca de</a></li>
+                <li><a href="#pasatiempos">Servicios</a></li>
+                <li><a href="#portafolio">Portafolio</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            
+            <div class="social-links">
+                <a href="https://www.facebook.com/reel/2937931746345288" class="facebook" target="_blank">f</a>
+                <a href="https://twitter.com" class="twitter" target="_blank">t</a>
+                <a href="https://instagram.com" class="instagram" target="_blank">i</a>
+                <a href="https://linkedin.com" class="linkedin" target="_blank">in</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section id="inicio" class="section">
+            <h2>Inicio</h2>
+            <p>No entiendo lo que dice el ejercicio 7: <br>
+               <h3>Ejercicio 7: Diseño de navegación</h3> <br>
+                ●	Crear una barra de navegación horizontal con enlaces internos a diferentes secciones del ejercicio 5 y que contenga enlaces externos a sus redes sociales. <br> <b>(no se si se queria referir a ejercicio 7 en vez de 5, porque enlaces internos quieren decir en el mismo documento html)</b>  <br>
+                ●	Estilizar los enlaces de navegación para que cambien de color cuando se les haga clic. <br> <br> <br>
+
+                <h3>Ejercicio 8: Diseño responsivo</h3> <br>
+                ●	Hacer que su página del ejercicio anterior sea responsiva usando media queries. <br>
+                ●	Asegúrese de que la página se vea bien en dispositivos móviles y de escritorio. <br>
+                
+                <b>Por lo que veo, la página ya es responsiva para diferentes dispositivos, en el ejercicio 7 implementé las media queries sin percatarme que en el 8 eran requeridas, así que considero que el ejercicio cumple los requisitos de ambos ejercicios, tanto 7 como 8.</b>
+
+                <br><br> <h3>Ejercicio 9: Imágenes y galería</h3> <br>
+                ●	Agregar al menos tres imágenes de pasatiempos a su página del ejercicio 7. <br>
+                ●	Crear una galería de imágenes que se abran en una ventana emergente cuando se haga clic en ellas. <br>
+
+            </p>
+        </section>
+
+        <section id="acerca" class="section">
+            <h2>Acerca de Mí</h2>
+                <p>Hola, mi nombre es Zhen. Nací en <b>Guayaquil, Ecuador</b> y actualmente vivo en Durán. Desde pequeño, siempre he tenido una gran pasión por la tecnología y la programación.</p>
+                <p>Estudié informática en el colegio del cañar y Me encanta aprender nuevas tecnologías y mejorar mis habilidades constantemente.</p>
+                <p>En mi tiempo libre, disfruto de actividades como leer libros de ciencia ficción, practicar deportes al aire libre y viajar para conocer nuevas culturas y lugares.</p>
+                <p>Estoy emocionado por las oportunidades que el futuro me depara y espero seguir creciendo tanto personal como profesionalmente.</p>
+        </section>
+
+        <section id="pasatiempos" class="section">
+            <h2>Estas son imagenes de mis prinpales pasatiempos (Ejercicio 9)</h2>
+            <div class="container-flex">
+                <a href="https://www.bing.com/images/search?q=persona%20durmiendo&qs=HS&form=QBIR&sp=1&lq=0&pq=persona%20d&sc=10-9&cvid=FC0891BB1FF74E6B9DD91E03DA3175E0&first=1" target="_blank"><img src="https://media.gq.com.mx/photos/6345af7950c7ecd84ad878bc/16:9/w_2560%2Cc_limit/Dormir_bien_1332616479.jpg" alt="dormir"></a>
+                <a href="https://www.bing.com/images/search?q=soldando+componentes+electronicos&form=HDRSC3&first=1" target="_blank"><img src="https://img.freepik.com/foto-gratis/manos-hombre-soldando-componentes-electronicos-placa-pc_279525-6097.jpg?size=626&ext=jpg" alt="soldar"></a>
+                <a href="https://www.bing.com/images/search?q=persona+jugando+videojuegos&form=HDRSC3&first=1"><img src="https://img.freepik.com/fotos-premium/persona-joven-jugando-videojuegos-sala-juegos-pc-gamepad-sonriendo_922928-8.jpg" alt="jugar"></a>
+            </div>
+        </section>
+
+        <section id="contacto" class="section">
+            <h2>Contacto</h2>
+            <p>¿Tienes un proyecto en mente? ¡Contáctanos!</p>
+            <p>Puedes escribirnos a: info@misitioweb.com</p>
+            <p>Teléfono: +1 234 567 890</p>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; Hecho por Zhen Hu</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla de Países y Capitales</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+        }
+        
+        h1 {
+            color: #d23669;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 30px 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.548);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #d23669, #ff7e5f);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        th:first-child {
+            border-top-left-radius: 10px;
+        }
+        
+        th:last-child {
+            border-top-right-radius: 10px;
+        }
+        
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 1rem;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        tr:hover {
+            background-color: #fff0f3;
+            transition: background-color 0.3s ease;
+        }
+        
+        .country-flag {
+            font-size: 1.5rem;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+        
+        .instructions {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border-left: 4px solid #d23669;
+        }
+        
+        .instructions h3 {
+            color: #d23669;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            th, td {
+                padding: 12px 10px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            th, td {
+                padding: 10px 8px;
+                font-size: 0.85rem;
+            }
+            
+            .country-flag {
+                font-size: 1.2rem;
+                margin-right: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tabla de Países y Capitales</h1>
+        <p class="subtitle">Información sobre países y sus respectivas capitales</p>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th width="10%">#</th>
+                        <th width="45%">País</th>
+                        <th width="45%">Capital</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><span class="country-flag">🇫🇷</span> Francia</td>
+                        <td>París</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><span class="country-flag">🇯🇵</span> Japón</td>
+                        <td>Tokio</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><span class="country-flag">🇧🇷</span> Brasil</td>
+                        <td>Brasilia</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td><span class="country-flag">🇪🇬</span> Egipto</td>
+                        <td>El Cairo</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td><span class="country-flag">🇨🇦</span> Canadá</td>
+                        <td>Ottawa</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td><span class="country-flag">🇦🇺</span> Australia</td>
+                        <td>Canberra</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="instructions">
+            <h3>Estructura de la tabla:</h3>
+            <p>Esta tabla HTML contiene 3 columnas y 6 filas (más la fila de encabezado), cumpliendo con el ejercicio solicitado de crear una tabla con al menos 3 filas y 3 columnas.</p>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>Ejercicio 3 - Tablas HTML | Países y Capitales del Mundo <br> Zhen Axel Hu Fernández</p>
+    </div>
+</body>
+</html>

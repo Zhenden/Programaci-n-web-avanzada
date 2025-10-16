@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caja con texto y slider</title>
+</head>
+<style>
+    /*Ejercicio 6: Diseño de caja
+●	Crear una caja con un borde y un fondo coloreado que contemple un slider a su gusto.
+●	Colocar texto en el centro de la caja.*/
+    body {
+        background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        color: #333;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    #texto {
+        font-size: 15px;
+        line-height: 1.6;
+        margin: 20px 0;
+        color: #444;
+        text-align: left;
+    }
+
+    input[type="range"] {
+        -webkit-appearances: none;
+        width: 80%;
+        height: 8px;
+        border-radius: 5px;
+        background: #fcb69f;
+        outline: none;
+        opacity: 0.9;
+        transition: opacity 0.2s;
+        margin-top: 20px;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: 50px auto;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        padding: 40px;
+        text-align: center;
+    }
+
+    .box {
+        border: 2px solid #fcb69f;
+        background-color: #fff0e6;
+        border-radius: 10px;
+        padding: 30px;
+        margin-top: 20px;
+        position: relative;
+    }
+
+    .box-text {
+        font-size: 1.5rem;
+        color: #e22a19e7;
+        font-weight: bold;
+    }
+
+    footer {
+        margin-top: 30px;
+        font-size: 0.9rem;
+        color: #000000;
+        text-align: center;
+        }
+    
+
+</style>
+
+<body>
+    <div class="container">
+        <h1>Mi Caja con Texto y Slider</h1>
+        <p id="texto">Ejercicio 6: Diseño de caja <br>
+●	Crear una caja con un borde y un fondo coloreado que contemple un slider a su gusto. <br>
+●	Colocar texto en el centro de la caja.
+</p>
+        <input type="range" min="0" max="100" value="50" class="slider" id="myRange">
+        <div class="box">
+            <p class="box-text">Texto en el centro de la caja</p>
+        </div>
+    </div>
+
+    <footer>
+        &copy; Zhen Hu
+    </footer>
+</body>
+
+</html>
