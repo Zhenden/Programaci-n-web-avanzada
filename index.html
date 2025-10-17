@@ -54,7 +54,13 @@
 
         .accordion-content.active {
             padding: 15px;
-            max-height: 1200px;
+            max-height: 1000px; /* Valor suficiente pero no excesivo */
+        }
+
+        /* Asegurar que los iframes no causen problemas de renderizado */
+        .content-frame {
+            min-height: 400px;
+            height: 400px;
         }
 
         iframe {
