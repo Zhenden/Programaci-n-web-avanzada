@@ -49,12 +49,12 @@
             padding: 0;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease-out;
+            transition: all 0.3s ease-in-out; /* Cambiado a 'all' */
         }
 
         .accordion-content.active {
             padding: 15px;
-            max-height: 1000px; /* Valor suficiente pero no excesivo */
+            max-height: 1000px;
         }
 
         /* Asegurar que los iframes no causen problemas de renderizado */
