@@ -26,12 +26,14 @@
         .accordion {
             max-width: 1366px;
             margin: 20px auto;
+            position: relative;
         }
 
         .accordion-item {
             border: 1px solid #ddd;
             margin-bottom: 5px;
             border-radius: 4px;
+            position: relative;
         }
 
         .accordion-header {
@@ -49,12 +51,21 @@
             padding: 0;
             max-height: 0;
             overflow: hidden;
-            transition: all 0.3s ease-in-out; /* Cambiado a 'all' */
+            transition: max-height 0.3s ease-out;
+            position: absolute;
+            top: 100%; /* Se posiciona justo debajo del header */
+            left: 0;
+            right: 0;
+            background: white;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 0 0 4px 4px;
         }
 
         .accordion-content.active {
             padding: 15px;
-            max-height: 1000px;
+            max-height: 500px;
+            position: absolute; /* Mantiene posición absoluta */
         }
 
         /* Asegurar que los iframes no causen problemas de renderizado */
