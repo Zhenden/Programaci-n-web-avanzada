@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambio de Estilo al Clic</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.2rem;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .color-box {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #ff6b6b, #ffa36b);
+            border-radius: 15px;
+            margin: 25px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s ease;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .color-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .color-box:hover::before {
+            opacity: 1;
+        }
+
+        .color-name {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            color: #333;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .color-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            color: white;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .color-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .color-btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .reset-btn {
+            background: linear-gradient(45deg, #6c757d, #495057);
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        .info {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: #495057;
+        }
+
+        .click-count {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #495057;
+            font-size: 1.1rem;
+        }
+
+        /* Colores específicos para los botones */
+        #red-btn { background: linear-gradient(45deg, #ff6b6b, #ff8e8e); }
+        #blue-btn { background: linear-gradient(45deg, #4dabf7, #339af0); }
+        #green-btn { background: linear-gradient(45deg, #51cf66, #40c057); }
+        #purple-btn { background: linear-gradient(45deg, #cc5de8, #be4bdb); }
+        #random-btn { background: linear-gradient(45deg, #ff922b, #fd7e14); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cambiador de Colores</h1>
+        <p class="subtitle">Haz clic en los botones para cambiar el color del cuadro</p>
+        
+        <div class="color-box" id="colorBox">
+            <div class="color-name" id="colorName">Gradiente Inicial</div>
+        </div>
+        
+        <div class="btn-container">
+            <button class="color-btn" id="red-btn">Rojo</button>
+            <button class="color-btn" id="blue-btn">Azul</button>
+            <button class="color-btn" id="green-btn">Verde</button>
+            <button class="color-btn" id="purple-btn">Púrpura</button>
+            <button class="color-btn" id="random-btn">Aleatorio</button>
+        </div>
+        
+        <button class="color-btn reset-btn" id="reset-btn">Reiniciar</button>
+        
+        <div class="click-count" id="clickCount">Clics realizados: 0</div>
+        
+        <div class="info">
+            <p>Este ejercicio demuestra cómo cambiar estilos con JavaScript al hacer clic en botones.</p>
+        </div>
+    </div>
+
+    <script>
+        // Elementos del DOM
+        const colorBox = document.getElementById('colorBox');
+        const colorName = document.getElementById('colorName');
+        const clickCountElement = document.getElementById('clickCount');
+        
+        // Contador de clics
+        let clickCount = 0;
+        
+        // Función para actualizar el contador
+        function updateClickCount() {
+            clickCount++;
+            clickCountElement.textContent = `Clics realizados: ${clickCount}`;
+        }
+        
+        // Función para cambiar el color
+        function changeColor(color, name) {
+            colorBox.style.background = color;
+            colorName.textContent = name;
+            updateClickCount();
+        }
+        
+        // Colores predefinidos
+        const colors = {
+            red: { gradient: 'linear-gradient(45deg, #ff6b6b, #ff8e8e)', name: 'Rojo Vibrante' },
+            blue: { gradient: 'linear-gradient(45deg, #4dabf7, #339af0)', name: 'Azul Profundo' },
+            green: { gradient: 'linear-gradient(45deg, #51cf66, #40c057)', name: 'Verde Fresco' },
+            purple: { gradient: 'linear-gradient(45deg, #cc5de8, #be4bdb)', name: 'Púrpura Intenso' }
+        };
+        
+        // Eventos para los botones de colores
+        document.getElementById('red-btn').addEventListener('click', function() {
+            changeColor(colors.red.gradient, colors.red.name);
+        });
+        
+        document.getElementById('blue-btn').addEventListener('click', function() {
+            changeColor(colors.blue.gradient, colors.blue.name);
+        });
+        
+        document.getElementById('green-btn').addEventListener('click', function() {
+            changeColor(colors.green.gradient, colors.green.name);
+        });
+        
+        document.getElementById('purple-btn').addEventListener('click', function() {
+            changeColor(colors.purple.gradient, colors.purple.name);
+        });
+        
+        // Botón de color aleatorio
+        document.getElementById('random-btn').addEventListener('click', function() {
+            const hue = Math.floor(Math.random() * 360);
+            const saturation = 70 + Math.floor(Math.random() * 30);
+            const lightness = 50 + Math.floor(Math.random() * 20);
+            
+            const randomColor = `linear-gradient(45deg, hsl(${hue}, ${saturation}%, ${lightness}%), 
+                hsl(${hue + 30}, ${saturation}%, ${lightness}%))`;
+            
+            changeColor(randomColor, `Color Aleatorio (HSL: ${hue}, ${saturation}%, ${lightness}%)`);
+        });
+        
+        // Botón de reinicio
+        document.getElementById('reset-btn').addEventListener('click', function() {
+            colorBox.style.background = 'linear-gradient(45deg, #ff6b6b, #ffa36b)';
+            colorName.textContent = 'Gradiente Inicial';
+            updateClickCount();
+        });
+    </script>
+</body>
+</html>

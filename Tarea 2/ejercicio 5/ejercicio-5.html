@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario con Validación</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .form-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        input.error {
+            border-color: #e74c3c;
+            background-color: #fff5f5;
+        }
+
+        input.success {
+            border-color: #51cf66;
+            background-color: #f0fff4;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.85rem;
+            margin-top: 6px;
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .password-container {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #666;
+            font-size: 1.2rem;
+            user-select: none;
+        }
+
+        .toggle-password:hover {
+            color: #333;
+        }
+
+        .password-strength {
+            margin-top: 10px;
+            height: 5px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .password-strength-bar {
+            height: 100%;
+            width: 0%;
+            transition: all 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .strength-weak { 
+            width: 33%; 
+            background: #e74c3c; 
+        }
+
+        .strength-medium { 
+            width: 66%; 
+            background: #f39c12; 
+        }
+
+        .strength-strong { 
+            width: 100%; 
+            background: #51cf66; 
+        }
+
+        .password-requirements {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .requirement {
+            padding: 4px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .requirement::before {
+            content: '✗';
+            color: #e74c3c;
+            margin-right: 8px;
+            font-weight: bold;
+        }
+
+        .requirement.met::before {
+            content: '✓';
+            color: #51cf66;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .success-message {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border: 2px solid #c3e6cb;
+            text-align: center;
+            animation: slideDown 0.5s ease;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .success-message h3 {
+            margin-bottom: 10px;
+            color: #155724;
+        }
+
+        .submitted-data {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-align: left;
+        }
+
+        .submitted-data p {
+            margin: 8px 0;
+            color: #333;
+        }
+
+        .submitted-data strong {
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>📋 Registro de Usuario</h1>
+        <p class="subtitle">Complete todos los campos requeridos</p>
+
+        <form id="registrationForm" novalidate>
+            <!-- Campo Nombre -->
+            <div class="form-group">
+                <label for="name">
+                    Nombre Completo <span class="required">*</span>
+                </label>
+                <input 
+                    type="text" 
+                    id="name" 
+                    name="name" 
+                    placeholder="Ej: Juan Pérez"
+                    autocomplete="name"
+                >
+                <div class="error-message" id="nameError"></div>
+            </div>
+
+            <!-- Campo Email -->
+            <div class="form-group">
+                <label for="email">
+                    Correo Electrónico <span class="required">*</span>
+                </label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    placeholder="correo@ejemplo.com"
+                    autocomplete="email"
+                >
+                <div class="error-message" id="emailError"></div>
+            </div>
+
+            <!-- Campo Contraseña -->
+            <div class="form-group">
+                <label for="password">
+                    Contraseña <span class="required">*</span>
+                </label>
+                <div class="password-container">
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        placeholder="Mínimo 8 caracteres"
+                        autocomplete="new-password"
+                    >
+                    <span class="toggle-password" id="togglePassword">👁️</span>
+                </div>
+                <div class="password-strength">
+                    <div class="password-strength-bar" id="strengthBar"></div>
+                </div>
+                <div class="password-requirements" id="requirements">
+                    <div class="requirement" id="req-length">Mínimo 8 caracteres</div>
+                    <div class="requirement" id="req-uppercase">Una letra mayúscula</div>
+                    <div class="requirement" id="req-lowercase">Una letra minúscula</div>
+                    <div class="requirement" id="req-number">Un número</div>
+                </div>
+                <div class="error-message" id="passwordError"></div>
+            </div>
+
+            <!-- Campo Confirmar Contraseña -->
+            <div class="form-group">
+                <label for="confirmPassword">
+                    Confirmar Contraseña <span class="required">*</span>
+                </label>
+                <input 
+                    type="password" 
+                    id="confirmPassword" 
+                    name="confirmPassword" 
+                    placeholder="Repita su contraseña"
+                    autocomplete="new-password"
+                >
+                <div class="error-message" id="confirmPasswordError"></div>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                Registrar Usuario
+            </button>
+        </form>
+
+        <div class="success-message" id="successMessage">
+            <h3>✅ Registro Exitoso</h3>
+            <p>Los datos han sido validados correctamente</p>
+            <div class="submitted-data" id="submittedData"></div>
+        </div>
+    </div>
+
+    <script>
+        // Elementos del DOM
+        const form = document.getElementById('registrationForm');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const togglePassword = document.getElementById('togglePassword');
+        const strengthBar = document.getElementById('strengthBar');
+        const successMessage = document.getElementById('successMessage');
+        const submittedData = document.getElementById('submittedData');
+
+        // Toggle para mostrar/ocultar contraseña
+        togglePassword.addEventListener('click', () => {
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
+            confirmPasswordInput.type = type;
+            togglePassword.textContent = type === 'password' ? '👁️' : '🙈';
+        });
+
+        // Validar en tiempo real
+        nameInput.addEventListener('input', () => validateName());
+        emailInput.addEventListener('input', () => validateEmail());
+        passwordInput.addEventListener('input', () => {
+            validatePassword();
+            checkPasswordStrength();
+        });
+        confirmPasswordInput.addEventListener('input', () => validateConfirmPassword());
+
+        // Función: Validar Nombre
+        function validateName() {
+            const name = nameInput.value.trim();
+            const nameError = document.getElementById('nameError');
+
+            if (name === '') {
+                showError(nameInput, nameError, 'El nombre es obligatorio');
+                return false;
+            } else if (name.length < 3) {
+                showError(nameInput, nameError, 'El nombre debe tener al menos 3 caracteres');
+                return false;
+            } else if (!/^[a-záéíóúñA-ZÁÉÍÓÚÑ\s]+$/.test(name)) {
+                showError(nameInput, nameError, 'El nombre solo puede contener letras');
+                return false;
+            } else {
+                showSuccess(nameInput, nameError);
+                return true;
+            }
+        }
+
+        // Función: Validar Email
+        function validateEmail() {
+            const email = emailInput.value.trim();
+            const emailError = document.getElementById('emailError');
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (email === '') {
+                showError(emailInput, emailError, 'El correo electrónico es obligatorio');
+                return false;
+            } else if (!emailPattern.test(email)) {
+                showError(emailInput, emailError, 'Ingrese un correo electrónico válido');
+                return false;
+            } else {
+                showSuccess(emailInput, emailError);
+                return true;
+            }
+        }
+
+        // Función: Validar Contraseña
+        function validatePassword() {
+            const password = passwordInput.value;
+            const passwordError = document.getElementById('passwordError');
+
+            const requirements = {
+                length: password.length >= 8,
+                uppercase: /[A-Z]/.test(password),
+                lowercase: /[a-z]/.test(password),
+                number: /[0-9]/.test(password)
+            };
+
+            // Actualizar indicadores visuales
+            document.getElementById('req-length').classList.toggle('met', requirements.length);
+            document.getElementById('req-uppercase').classList.toggle('met', requirements.uppercase);
+            document.getElementById('req-lowercase').classList.toggle('met', requirements.lowercase);
+            document.getElementById('req-number').classList.toggle('met', requirements.number);
+
+            const allMet = Object.values(requirements).every(req => req);
+
+            if (password === '') {
+                showError(passwordInput, passwordError, 'La contraseña es obligatoria');
+                return false;
+            } else if (!allMet) {
+                showError(passwordInput, passwordError, 'La contraseña no cumple todos los requisitos');
+                return false;
+            } else {
+                showSuccess(passwordInput, passwordError);
+                return true;
+            }
+        }
+
+        // Función: Verificar fortaleza de contraseña
+        function checkPasswordStrength() {
+            const password = passwordInput.value;
+            let strength = 0;
+
+            if (password.length >= 8) strength++;
+            if (/[A-Z]/.test(password)) strength++;
+            if (/[a-z]/.test(password)) strength++;
+            if (/[0-9]/.test(password)) strength++;
+            if (/[^A-Za-z0-9]/.test(password)) strength++;
+
+            strengthBar.className = 'password-strength-bar';
+            
+            if (strength <= 2) {
+                strengthBar.classList.add('strength-weak');
+            } else if (strength <= 3) {
+                strengthBar.classList.add('strength-medium');
+            } else {
+                strengthBar.classList.add('strength-strong');
+            }
+        }
+
+        // Función: Validar Confirmar Contraseña
+        function validateConfirmPassword() {
+            const password = passwordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+            const confirmError = document.getElementById('confirmPasswordError');
+
+            if (confirmPassword === '') {
+                showError(confirmPasswordInput, confirmError, 'Debe confirmar su contraseña');
+                return false;
+            } else if (password !== confirmPassword) {
+                showError(confirmPasswordInput, confirmError, 'Las contraseñas no coinciden');
+                return false;
+            } else {
+                showSuccess(confirmPasswordInput, confirmError);
+                return true;
+            }
+        }
+
+        // Función: Mostrar error
+        function showError(input, errorElement, message) {
+            input.classList.remove('success');
+            input.classList.add('error');
+            errorElement.textContent = message;
+            errorElement.classList.add('show');
+        }
+
+        // Función: Mostrar éxito
+        function showSuccess(input, errorElement) {
+            input.classList.remove('error');
+            input.classList.add('success');
+            errorElement.classList.remove('show');
+        }
+
+        // Evento: Enviar formulario
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Validar todos los campos
+            const isNameValid = validateName();
+            const isEmailValid = validateEmail();
+            const isPasswordValid = validatePassword();
+            const isConfirmPasswordValid = validateConfirmPassword();
+
+            // Si todo es válido, mostrar mensaje de éxito
+            if (isNameValid && isEmailValid && isPasswordValid && isConfirmPasswordValid) {
+                // Ocultar formulario
+                form.style.display = 'none';
+
+                // Mostrar datos enviados
+                submittedData.innerHTML = `
+                    <p><strong>Nombre:</strong> ${nameInput.value}</p>
+                    <p><strong>Email:</strong> ${emailInput.value}</p>
+                    <p><strong>Contraseña:</strong> ${'•'.repeat(passwordInput.value.length)}</p>
+                `;
+
+                successMessage.classList.add('show');
+
+                // Reiniciar formulario después de 5 segundos
+                setTimeout(() => {
+                    form.reset();
+                    form.style.display = 'block';
+                    successMessage.classList.remove('show');
+                    
+                    // Limpiar clases de éxito
+                    [nameInput, emailInput, passwordInput, confirmPasswordInput].forEach(input => {
+                        input.classList.remove('success', 'error');
+                    });
+                    
+                    // Resetear barra de fortaleza
+                    strengthBar.className = 'password-strength-bar';
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>

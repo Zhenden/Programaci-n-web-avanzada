@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reloj Analógico</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .clock-container {
+            position: relative;
+            width: 350px;
+            height: 350px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
+                        inset 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 16px;
+        }
+
+        .clock-face {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border: 8px solid #333;
+        }
+
+        /* Centro del reloj */
+        .center-dot {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            background: #333;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Números del reloj */
+        .number {
+            position: absolute;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+        }
+
+        /* Posiciones de los números */
+        .number-12 { top: 15px; left: 50%; transform: translateX(-50%); }
+        .number-1 { top: 30px; right: 70px; }
+        .number-2 { top: 70px; right: 30px; }
+        .number-3 { top: 50%; right: 15px; transform: translateY(-50%); }
+        .number-4 { bottom: 70px; right: 30px; }
+        .number-5 { bottom: 30px; right: 70px; }
+        .number-6 { bottom: 15px; left: 50%; transform: translateX(-50%); }
+        .number-7 { bottom: 30px; left: 70px; }
+        .number-8 { bottom: 70px; left: 30px; }
+        .number-9 { top: 50%; left: 15px; transform: translateY(-50%); }
+        .number-10 { top: 70px; left: 30px; }
+        .number-11 { top: 30px; left: 70px; }
+
+        /* Marcas de minutos */
+        .tick {
+            position: absolute;
+            width: 2px;
+            height: 10px;
+            background: #666;
+            left: 50%;
+            top: 8px;
+            transform-origin: center 145px;
+        }
+
+        /* Manecillas */
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            border-radius: 10px;
+            transition: transform 0.3s cubic-bezier(0.4, 2.3, 0.3, 1);
+        }
+
+        .hour-hand {
+            width: 8px;
+            height: 90px;
+            background: #333;
+            margin-left: -4px;
+            z-index: 3;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .minute-hand {
+            width: 6px;
+            height: 120px;
+            background: #555;
+            margin-left: -3px;
+            z-index: 2;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .second-hand {
+            width: 3px;
+            height: 130px;
+            background: #e74c3c;
+            margin-left: -1.5px;
+            z-index: 4;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Hora digital */
+        .digital-time {
+            margin-top: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .digital-time h2 {
+            font-size: 48px;
+            color: #333;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .date {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #666;
+            text-align: center;
+        }
+
+        .title {
+            color: white;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .title h1 {
+            font-size: 42px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="title">
+        <h1>⏰ Reloj Analógico</h1>
+    </div>
+
+    <div class="clock-container">
+        <div class="clock-face">
+            <!-- Números del reloj -->
+            <div class="number number-12">12</div>
+            <div class="number number-1">1</div>
+            <div class="number number-2">2</div>
+            <div class="number number-3">3</div>
+            <div class="number number-4">4</div>
+            <div class="number number-5">5</div>
+            <div class="number number-6">6</div>
+            <div class="number number-7">7</div>
+            <div class="number number-8">8</div>
+            <div class="number number-9">9</div>
+            <div class="number number-10">10</div>
+            <div class="number number-11">11</div>
+
+            <!-- Manecillas -->
+            <div class="hand hour-hand" id="hour-hand"></div>
+            <div class="hand minute-hand" id="minute-hand"></div>
+            <div class="hand second-hand" id="second-hand"></div>
+            
+            <!-- Centro del reloj -->
+            <div class="center-dot"></div>
+        </div>
+    </div>
+
+    <div class="digital-time">
+        <h2 id="digital-clock">00:00:00</h2>
+        <div class="date" id="date"></div>
+    </div>
+
+    <script>
+        const hourHand = document.getElementById('hour-hand');
+        const minuteHand = document.getElementById('minute-hand');
+        const secondHand = document.getElementById('second-hand');
+        const digitalClock = document.getElementById('digital-clock');
+        const dateElement = document.getElementById('date');
+
+        // Crear marcas de minutos
+        const clockFace = document.querySelector('.clock-face');
+        for (let i = 0; i < 60; i++) {
+            const tick = document.createElement('div');
+            tick.className = 'tick';
+            tick.style.transform = `rotate(${i * 6}deg)`;
+            
+            // Marcas más gruesas cada 5 minutos
+            if (i % 5 === 0) {
+                tick.style.width = '3px';
+                tick.style.height = '15px';
+                tick.style.background = '#333';
+            }
+            
+            clockFace.appendChild(tick);
+        }
+
+        function updateClock() {
+            const now = new Date();
+            
+            // Obtener valores de tiempo
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            const milliseconds = now.getMilliseconds();
+
+            // Calcular grados de rotación
+            // Segundos: 360° / 60 = 6° por segundo
+            const secondDegrees = ((seconds + milliseconds / 1000) * 6);
+            
+            // Minutos: 360° / 60 = 6° por minuto + movimiento suave por segundos
+            const minuteDegrees = ((minutes + seconds / 60) * 6);
+            
+            // Horas: 360° / 12 = 30° por hora + movimiento suave por minutos
+            const hourDegrees = ((hours % 12 + minutes / 60) * 30);
+
+            // Aplicar rotación a las manecillas
+            secondHand.style.transform = `rotate(${secondDegrees}deg)`;
+            minuteHand.style.transform = `rotate(${minuteDegrees}deg)`;
+            hourHand.style.transform = `rotate(${hourDegrees}deg)`;
+
+            // Actualizar reloj digital
+            const hoursStr = hours.toString().padStart(2, '0');
+            const minutesStr = minutes.toString().padStart(2, '0');
+            const secondsStr = seconds.toString().padStart(2, '0');
+            digitalClock.textContent = `${hoursStr}:${minutesStr}:${secondsStr}`;
+
+            // Actualizar fecha
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            dateElement.textContent = now.toLocaleDateString('es-ES', options);
+        }
+
+        // Actualizar cada 50ms para movimiento suave
+        setInterval(updateClock, 50);
+        
+        // Ejecutar inmediatamente al cargar
+        updateClock();
+    </script>
+</body>
+</html>

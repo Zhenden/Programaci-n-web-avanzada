@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú de Navegación Desplegable</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        nav {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .menu {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .menu-item {
+            position: relative;
+        }
+
+        .menu-item > a {
+            display: block;
+            padding: 20px 30px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .menu-item > a:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .menu-item > a::after {
+            content: ' ▼';
+            font-size: 0.7em;
+            margin-left: 5px;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .menu-item.active > a::after {
+            transform: rotate(180deg);
+        }
+
+        .menu-item.no-submenu > a::after {
+            content: '';
+        }
+
+        .submenu {
+            list-style: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 220px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border-radius: 0 0 8px 8px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .submenu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .submenu li {
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .submenu li:last-child {
+            border-bottom: none;
+        }
+
+        .submenu a {
+            display: block;
+            padding: 15px 25px;
+            text-decoration: none;
+            color: #555;
+            transition: all 0.2s ease;
+        }
+
+        .submenu a:hover {
+            background: #f8f9fa;
+            color: #667eea;
+            padding-left: 30px;
+        }
+
+        .content {
+            background: white;
+            margin-top: 30px;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .content h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .content p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .menu {
+                flex-direction: column;
+            }
+
+            .menu-item {
+                width: 100%;
+            }
+
+            .submenu {
+                position: static;
+                box-shadow: none;
+                border-radius: 0;
+                background: #f8f9fa;
+                max-height: 0;
+                overflow: hidden;
+            }
+
+            .submenu.active {
+                max-height: 500px;
+            }
+
+            .submenu a {
+                padding-left: 50px;
+            }
+
+            .submenu a:hover {
+                padding-left: 55px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🍔 Menú de Navegación Interactivo</h1>
+        
+        <nav>
+            <ul class="menu">
+                <li class="menu-item no-submenu">
+                    <a>Inicio</a>
+                </li>
+                
+                <li class="menu-item">
+                    <a>Productos</a>
+                    <ul class="submenu">
+                        <li><a>Electrónica</a></li>
+                        <li><a>Ropa y Moda</a></li>
+                        <li><a>Hogar y Jardín</a></li>
+                        <li><a>Deportes</a></li>
+                    </ul>
+                </li>
+                
+                <li class="menu-item">
+                    <a>Servicios</a>
+                    <ul class="submenu">
+                        <li><a>Consultoría</a></li>
+                        <li><a>Desarrollo Web</a></li>
+                        <li><a>Marketing Digital</a></li>
+                        <li><a>Soporte Técnico</a></li>
+                    </ul>
+                </li>
+                
+                <li class="menu-item">
+                    <a>Empresa</a>
+                    <ul class="submenu">
+                        <li><a>Sobre Nosotros</a></li>
+                        <li><a>Equipo</a></li>
+                        <li><a>Carreras</a></li>
+                        <li><a>Ubicación</a></li>
+                    </ul>
+                </li>
+                
+                <li class="menu-item no-submenu">
+                    <a>Blog</a>
+                </li>
+                
+                <li class="menu-item no-submenu">
+                    <a>Contacto</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <h2>Bienvenido a Nuestro Sitio Web</h2>
+            <p>Este es un ejemplo de menú de navegación desplegable completamente funcional. Haz clic en los elementos del menú que tienen la flecha ▼ para ver los submenús.</p>
+            <p>El menú es completamente responsive y se adapta a dispositivos móviles automáticamente.</p>
+            <p><strong>Características:</strong></p>
+            <ul style="margin-left: 20px; color: #666; line-height: 1.8;">
+                <li>Submenús interactivos con animaciones suaves</li>
+                <li>Cierre automático al hacer clic fuera del menú</li>
+                <li>Diseño responsive para móviles</li>
+                <li>Indicadores visuales de menús activos</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Obtener todos los elementos del menú
+        const menuItems = document.querySelectorAll('.menu-item');
+
+        // Agregar evento de clic a cada elemento del menú
+        menuItems.forEach(item => {
+            const link = item.querySelector('a');
+            const submenu = item.querySelector('.submenu');
+
+            // Solo agregar evento si tiene submenú
+            if (submenu) {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    // Cerrar otros submenús abiertos
+                    menuItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                            const otherSubmenu = otherItem.querySelector('.submenu');
+                            if (otherSubmenu) {
+                                otherSubmenu.classList.remove('active');
+                            }
+                        }
+                    });
+
+                    // Alternar el submenú actual
+                    item.classList.toggle('active');
+                    submenu.classList.toggle('active');
+                });
+            }
+        });
+
+        // Cerrar submenús al hacer clic fuera del menú
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('nav')) {
+                menuItems.forEach(item => {
+                    item.classList.remove('active');
+                    const submenu = item.querySelector('.submenu');
+                    if (submenu) {
+                        submenu.classList.remove('active');
+                    }
+                });
+            }
+        });
+
+        // Evitar que los clics en los submenús cierren el menú
+        document.querySelectorAll('.submenu a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.stopPropagation();
+                console.log('Seleccionaste:', e.target.textContent);
+            });
+        });
+    </script>
+</body>
+</html>

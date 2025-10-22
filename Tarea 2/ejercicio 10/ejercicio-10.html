@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juego de Preguntas y Respuestas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .contenedor {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .opciones {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    button {
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      background-color: #4CAF50;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .resultado {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+    <h1>Juego de Preguntas</h1>
+    <div id="pregunta"></div>
+    <div id="opciones" class="opciones"></div>
+    <div id="resultado" class="resultado"></div>
+  </div>
+
+  <script>
+    const preguntas = [
+      {
+        pregunta: "¿Cuál es el planeta más grande del sistema solar?",
+        opciones: ["Tierra", "Marte", "Júpiter", "Venus"],
+        respuesta: "Júpiter"
+      },
+      {
+        pregunta: "¿Cuántos continentes hay en el mundo?",
+        opciones: ["5", "6", "7", "8"],
+        respuesta: "7"
+      },
+      {
+        pregunta: "¿Qué idioma se habla en Brasil?",
+        opciones: ["Español", "Portugués", "Inglés", "Francés"],
+        respuesta: "Portugués"
+      },
+      {
+        pregunta: "¿Quién pintó la Mona Lisa?",
+        opciones: ["Picasso", "Leonardo da Vinci", "Van Gogh", "Dalí"],
+        respuesta: "Leonardo da Vinci"
+      }
+    ];
+
+    let indiceActual = 0;
+    let puntaje = 0;
+
+    const preguntaEl = document.getElementById("pregunta");
+    const opcionesEl = document.getElementById("opciones");
+    const resultadoEl = document.getElementById("resultado");
+
+    function mostrarPregunta() {
+      if (indiceActual < preguntas.length) {
+        const actual = preguntas[indiceActual];
+        preguntaEl.textContent = actual.pregunta;
+        opcionesEl.innerHTML = "";
+
+        actual.opciones.forEach(opcion => {
+          const boton = document.createElement("button");
+          boton.textContent = opcion;
+          boton.onclick = () => verificarRespuesta(opcion);
+          opcionesEl.appendChild(boton);
+        });
+      } else {
+        mostrarResultado();
+      }
+    }
+
+    function verificarRespuesta(opcionSeleccionada) {
+      const correcta = preguntas[indiceActual].respuesta;
+      if (opcionSeleccionada === correcta) {
+        puntaje++;
+      }
+      indiceActual++;
+      mostrarPregunta();
+    }
+
+    function mostrarResultado() {
+      preguntaEl.textContent = "¡Juego terminado!";
+      opcionesEl.innerHTML = "";
+      resultadoEl.textContent = `Tu puntuación final es: ${puntaje} de ${preguntas.length}`;
+    }
+
+    mostrarPregunta();
+  </script>
+</body>
+</html>

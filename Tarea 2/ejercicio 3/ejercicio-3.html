@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambio de Imagen al Pasar el Ratón</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .image-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .image-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .image-container {
+            width: 100%;
+            height: 250px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .image-info {
+            color: #333;
+            padding: 10px;
+        }
+
+        .image-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2d3748;
+        }
+
+        .image-description {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .image-container:hover .hover-text {
+            opacity: 1;
+        }
+
+        /* Efectos de transición personalizados */
+        .fade-effect .main-image {
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .fade-effect:hover .main-image {
+            opacity: 0.8;
+        }
+
+        .zoom-effect .main-image {
+            transform: scale(1);
+            transition: transform 0.5s ease;
+        }
+
+        .zoom-effect:hover .main-image {
+            transform: scale(1.1);
+        }
+
+        .slide-effect {
+            overflow: hidden;
+        }
+
+        .slide-effect .main-image {
+            transform: translateX(0);
+            transition: transform 0.5s ease;
+        }
+
+        .blur-effect .main-image {
+            filter: blur(0);
+            transition: filter 0.5s ease;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        .control-btn:hover {
+            background: white;
+            color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .instructions {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 40px;
+            max-width: 800px;
+            backdrop-filter: blur(10px);
+        }
+
+        .instructions h2 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .instructions p {
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Galería Interactiva</h1>
+        <p class="subtitle">Pasa el ratón sobre las imágenes para ver la magia ✨</p>
+        
+        <div class="controls">
+            <button class="control-btn" onclick="resetAllImages()">Reiniciar Todas las Imágenes</button>
+            <button class="control-btn" onclick="toggleEffects()">Alternar Efectos</button>
+        </div>
+        
+        <div class="gallery">
+            <!-- Imagen 1 - Naturaleza -->
+            <div class="image-card">
+                <div class="image-container fade-effect" id="container1">
+                    <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" 
+                         alt="Paisaje natural" 
+                         class="main-image" 
+                         id="image1"
+                         data-original="https://images.unsplash.com/photo-1501854140801-50d01698950b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+                         data-hover="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80">
+                    <div class="hover-text">Pasa el ratón para ver el bosque</div>
+                </div>
+                <div class="image-info">
+                    <div class="image-title">Paisaje Natural</div>
+                    <div class="image-description">Un hermoso paisaje montañoso se transforma en un bosque encantado al pasar el ratón.</div>
+                </div>
+            </div>
+
+            <!-- Imagen 2 - Ciudad -->
+            <div class="image-card">
+                <div class="image-container zoom-effect" id="container2">
+                    <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" 
+                         alt="Ciudad" 
+                         class="main-image" 
+                         id="image2"
+                         data-original="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+                         data-hover="https://images.unsplash.com/photo-1519501025264-65ba15a82390?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80">
+                    <div class="hover-text">Pasa el ratón para ver la ciudad de noche</div>
+                </div>
+                <div class="image-info">
+                    <div class="image-title">Vida Urbana</div>
+                    <div class="image-description">Una vista diurna de la ciudad se convierte en un paisaje nocturno iluminado.</div>
+                </div>
+            </div>
+
+            <!-- Imagen 3 - Animales -->
+            <div class="image-card">
+                <div class="image-container slide-effect" id="container3">
+                    <img src="https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" 
+                         alt="León" 
+                         class="main-image" 
+                         id="image3"
+                         data-original="https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+                         data-hover="https://images.unsplash.com/photo-1546182990-dffeafbe841d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80">
+                    <div class="hover-text">Pasa el ratón para ver el León</div>
+                </div>
+                <div class="image-info">
+                    <div class="image-title">Mundo Animal</div>
+                    <div class="image-description">Un majestuoso león se transforma en un poderoso León con efecto de desplazamiento.</div>
+                </div>
+            </div>
+
+            <!-- Imagen 4 - Tecnología -->
+            <div class="image-card">
+                <div class="image-container blur-effect" id="container4">
+                    <img src="https://1.bp.blogspot.com/-zEmDHgt0_n0/V_zg2E7UxSI/AAAAAAAAAB4/-hxRwQDzyrkh64HwqlPUbOdgeXIksWazgCLcB/s1600/tecnologia.jpg" 
+                         alt="Tecnología" 
+                         class="main-image" 
+                         id="image4"
+                         data-original="https://1.bp.blogspot.com/-zEmDHgt0_n0/V_zg2E7UxSI/AAAAAAAAAB4/-hxRwQDzyrkh64HwqlPUbOdgeXIksWazgCLcB/s1600/tecnologia.jpg"
+                         data-hover="https://dosideas.com/images/stories/desarrollo-de-software/cover/pantalla-codigo-en-diagonal.jpg">
+                    <div class="hover-text">Pasa el ratón para ver código</div>
+                </div>
+                <div class="image-info">
+                    <div class="image-title">Tecnología</div>
+                    <div class="image-description">Un concepto abstracto de tecnología se convierte en código de programación real.</div>
+                </div>
+            </div>
+        </div>
+
+
+    <script>
+        // Inicializar eventos cuando el DOM esté cargado
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeImageHoverEffects();
+        });
+
+        function initializeImageHoverEffects() {
+            // Seleccionar todas las imágenes
+            const images = document.querySelectorAll('.main-image');
+            
+            images.forEach(image => {
+                const originalSrc = image.getAttribute('data-original');
+                const hoverSrc = image.getAttribute('data-hover');
+                
+                // Asegurarse de que la imagen original esté cargada
+                image.src = originalSrc;
+                
+                // Evento para cuando el ratón entra
+                image.parentElement.addEventListener('mouseenter', function() {
+                    image.src = hoverSrc;
+                });
+                
+                // Evento para cuando el ratón sale
+                image.parentElement.addEventListener('mouseleave', function() {
+                    image.src = originalSrc;
+                });
+
+                // Evento de clic para ver la imagen en grande (opcional)
+                image.addEventListener('click', function() {
+                    alert(`Has hecho clic en: ${image.alt}\n\nPasa el ratón para ver la transformación.`);
+                });
+            });
+        }
+
+        // Función para reiniciar todas las imágenes
+        function resetAllImages() {
+            const images = document.querySelectorAll('.main-image');
+            images.forEach(image => {
+                const originalSrc = image.getAttribute('data-original');
+                image.src = originalSrc;
+            });
+            
+            // Efecto visual de confirmación
+            const buttons = document.querySelectorAll('.control-btn');
+            buttons[0].textContent = '✓ Reiniciado!';
+            setTimeout(() => {
+                buttons[0].textContent = 'Reiniciar Todas las Imágenes';
+            }, 1500);
+        }
+
+        // Función para alternar entre diferentes efectos
+        function toggleEffects() {
+            const containers = document.querySelectorAll('.image-container');
+            const effects = ['fade-effect', 'zoom-effect', 'slide-effect', 'blur-effect'];
+            
+            containers.forEach((container, index) => {
+                // Remover todas las clases de efecto
+                effects.forEach(effect => {
+                    container.classList.remove(effect);
+                });
+                
+                // Aplicar un nuevo efecto cíclicamente
+                const currentEffect = effects[index % effects.length];
+                container.classList.add(currentEffect);
+            });
+            
+            // Efecto visual de confirmación
+            const buttons = document.querySelectorAll('.control-btn');
+            buttons[1].textContent = '✓ Efectos Cambiados!';
+            setTimeout(() => {
+                buttons[1].textContent = 'Alternar Efectos';
+            }, 1500);
+        }
+
+        // Efecto adicional: seguimiento del ratón en las tarjetas
+        document.querySelectorAll('.image-card').forEach(card => {
+            card.addEventListener('mousemove', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const angleX = (y - centerY) / 25;
+                const angleY = (centerX - x) / 25;
+                
+                this.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) translateY(-10px)`;
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(+10px)';
+            });
+        });
+    </script>
+</body>
+</html>

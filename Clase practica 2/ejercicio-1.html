@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrusel de Imágenes</title>
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #3f5a33;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 80vh;
+
+        }
+        
+        h2 {
+            color: white;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-2px);
+        }
+
+
+        .title {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        #imagen {
+            width:100%;
+            height:100%;
+            object-fit:cover;         /* estado visible */
+            transition: opacity 0.5s ease; /* 0.5 s de fade */
+            border-radius: 15px;
+        }
+        
+        .gallery img {
+            width: 700px;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+                
+        .buttons {
+            margin: 20px 0;
+            transition: transform 0.3s ease;
+        }
+        
+        button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-3px);
+        }
+        
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        footer {
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="title">
+            <h2>Galería de Imágenes</h2>
+        </div>
+        
+        <div>
+            <img src="https://picsum.photos/id/1015/700/500" alt="Imagen 1" id="imagen">
+        </div>
+
+        <div class="buttons">
+            <button id="anterior">Anterior</button>
+            <button id="siguiente">Siguiente</button>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p> Carrusel de Imágenes. Hecho por Zhen Hu Fernández</p>
+    </footer>
+
+    <script>
+        const images = [
+            //lorem picsum es la pagina de imagenes que se usa 
+            'https://picsum.photos/id/1015/700/500',
+            'https://picsum.photos/id/1016/700/500',
+            'https://picsum.photos/id/1018/700/500',
+            'https://picsum.photos/id/1019/700/500',
+            'https://picsum.photos/id/1020/700/500',
+            'https://picsum.photos/id/1021/700/500',
+            'https://picsum.photos/id/1022/700/500',
+            'https://picsum.photos/id/1023/700/500',
+            'https://picsum.photos/id/1024/700/500',
+            'https://picsum.photos/id/1025/700/500',
+            'https://picsum.photos/id/1026/700/500',
+        ];
+        
+        // se crea un array con las imagenes para que se carguen en el navegador
+        const imagenesPrecargadas = []
+
+        images.forEach(src => {
+            const img = new Image();
+            img.src = src;
+            imagenesPrecargadas.push(img);
+        });
+
+        // se crean las variables de control
+        let index_actual = 0
+        const imagen_elegida = document.getElementById('imagen')
+        const imagen_anterior = document.getElementById('anterior')
+        const imagen_siguiente = document.getElementById('siguiente')
+
+        // se crea una función que muestra la imagen
+        function showImage(idx) {
+
+            imagen_elegida.style.opacity = 0;
+
+            setTimeout(() => {
+                imagen_elegida.src = images[idx];      // ya está en caché → no demora
+                imagen_elegida.alt = `Imagen ${idx + 1}`;
+                imagen_elegida.style.opacity = 1;
+            }, 200);
+            
+            imagen_anterior.disabled = (index_actual === 0);
+            imagen_siguiente.disabled = (index_actual === images.length - 1);
+        }
+
+        // se crean las funciones para cambiar de imagen
+        imagen_siguiente.onclick = () => {
+            index_actual = (index_actual + 1) % images.length;
+
+            showImage(index_actual)
+        }
+
+        imagen_anterior.onclick = () => {
+            index_actual = (index_actual - 1 + images.length) % images.length;
+
+            showImage(index_actual)
+        }
+        showImage(index_actual)
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temporizador de Cuenta Regresiva</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            font-size: 3em;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .timer-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+        }
+
+        .timer-display {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .time-unit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 25px 20px;
+            min-width: 120px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .time-unit:hover {
+            transform: translateY(-5px);
+        }
+
+        .time-number {
+            font-size: 3.5em;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            line-height: 1;
+        }
+
+        .time-label {
+            font-size: 0.9em;
+            color: rgba(255,255,255,0.9);
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-start {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+
+        .btn-pause {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .btn-reset {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .input-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .input-section h3 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .time-inputs {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .input-group label {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .input-group input {
+            width: 80px;
+            padding: 12px;
+            font-size: 1.2em;
+            text-align: center;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .status-message {
+            text-align: center;
+            font-size: 1.3em;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .status-running {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-paused {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-finished {
+            background: #f8d7da;
+            color: #721c24;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 25px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 1s linear;
+            border-radius: 10px;
+        }
+
+        .presets {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .preset-btn {
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .preset-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .time-unit {
+                min-width: 90px;
+                padding: 20px 15px;
+            }
+
+            .time-number {
+                font-size: 2.5em;
+            }
+
+            .btn {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⏱️ Temporizador de Cuenta Regresiva</h1>
+        
+        <div class="timer-card">
+            <div class="input-section">
+                <h3>⚙️ Configurar Tiempo</h3>
+                <div class="time-inputs">
+                    <div class="input-group">
+                        <label>Horas</label>
+                        <input type="number" id="hoursInput" min="0" max="99" value="0">
+                    </div>
+                    <div class="input-group">
+                        <label>Minutos</label>
+                        <input type="number" id="minutesInput" min="0" max="59" value="5">
+                    </div>
+                    <div class="input-group">
+                        <label>Segundos</label>
+                        <input type="number" id="secondsInput" min="0" max="59" value="0">
+                    </div>
+                </div>
+                <div class="presets">
+                    <button class="preset-btn" onclick="setPreset(1, 0, 0)">1 min</button>
+                    <button class="preset-btn" onclick="setPreset(5, 0, 0)">5 min</button>
+                    <button class="preset-btn" onclick="setPreset(10, 0, 0)">10 min</button>
+                    <button class="preset-btn" onclick="setPreset(0, 30, 0)">30 min</button>
+                    <button class="preset-btn" onclick="setPreset(0, 0, 1)">1 hora</button>
+                </div>
+            </div>
+
+            <div class="timer-display">
+                <div class="time-unit">
+                    <div class="time-number" id="displayHours">00</div>
+                    <div class="time-label">Horas</div>
+                </div>
+                <div class="time-unit">
+                    <div class="time-number" id="displayMinutes">05</div>
+                    <div class="time-label">Minutos</div>
+                </div>
+                <div class="time-unit">
+                    <div class="time-number" id="displaySeconds">00</div>
+                    <div class="time-label">Segundos</div>
+                </div>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-start" id="startBtn" onclick="startTimer()">▶️ Iniciar</button>
+                <button class="btn btn-pause" id="pauseBtn" onclick="pauseTimer()" disabled>⏸️ Pausar</button>
+                <button class="btn btn-reset" id="resetBtn" onclick="resetTimer()">🔄 Reiniciar</button>
+            </div>
+
+            <div id="statusMessage"></div>
+        </div>
+    </div>
+
+    <script>
+        let timerInterval = null;
+        let totalSeconds = 0;
+        let remainingSeconds = 0;
+        let isRunning = false;
+
+        // Referencias a elementos del DOM
+        const hoursInput = document.getElementById('hoursInput');
+        const minutesInput = document.getElementById('minutesInput');
+        const secondsInput = document.getElementById('secondsInput');
+        const displayHours = document.getElementById('displayHours');
+        const displayMinutes = document.getElementById('displayMinutes');
+        const displaySeconds = document.getElementById('displaySeconds');
+        const startBtn = document.getElementById('startBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const statusMessage = document.getElementById('statusMessage');
+        const progressBar = document.getElementById('progressBar');
+
+        // Actualizar display del temporizador
+        function updateDisplay() {
+            const hours = Math.floor(remainingSeconds / 3600);
+            const minutes = Math.floor((remainingSeconds % 3600) / 60);
+            const seconds = remainingSeconds % 60;
+
+            displayHours.textContent = String(hours).padStart(2, '0');
+            displayMinutes.textContent = String(minutes).padStart(2, '0');
+            displaySeconds.textContent = String(seconds).padStart(2, '0');
+
+            // Actualizar barra de progreso
+            const progress = totalSeconds > 0 ? ((totalSeconds - remainingSeconds) / totalSeconds) * 100 : 0;
+            progressBar.style.width = progress + '%';
+
+            // Actualizar título de la página
+            document.title = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')} - Temporizador`;
+        }
+
+        // Iniciar temporizador
+        function startTimer() {
+            if (isRunning) return;
+
+            // Si es la primera vez, obtener el tiempo de los inputs
+            if (remainingSeconds === 0) {
+                const hours = parseInt(hoursInput.value) || 0;
+                const minutes = parseInt(minutesInput.value) || 0;
+                const seconds = parseInt(secondsInput.value) || 0;
+
+                totalSeconds = hours * 3600 + minutes * 60 + seconds;
+                remainingSeconds = totalSeconds;
+
+                if (totalSeconds === 0) {
+                    showStatus('⚠️ Por favor, ingresa un tiempo válido', 'status-paused');
+                    return;
+                }
+            }
+
+            isRunning = true;
+            startBtn.disabled = true;
+            pauseBtn.disabled = false;
+            disableInputs(true);
+
+            showStatus('⏱️ Temporizador en marcha...', 'status-running');
+
+            timerInterval = setInterval(() => {
+                remainingSeconds--;
+                updateDisplay();
+
+                if (remainingSeconds <= 0) {
+                    finishTimer();
+                }
+            }, 1000);
+        }
+
+        // Pausar temporizador
+        function pauseTimer() {
+            if (!isRunning) return;
+
+            clearInterval(timerInterval);
+            isRunning = false;
+            startBtn.disabled = false;
+            pauseBtn.disabled = true;
+            startBtn.textContent = '▶️ Reanudar';
+
+            showStatus('⏸️ Temporizador pausado', 'status-paused');
+        }
+
+        // Reiniciar temporizador
+        function resetTimer() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            remainingSeconds = 0;
+            totalSeconds = 0;
+
+            startBtn.disabled = false;
+            pauseBtn.disabled = true;
+            startBtn.textContent = '▶️ Iniciar';
+            disableInputs(false);
+
+            // Restaurar valores de los inputs al display
+            const hours = parseInt(hoursInput.value) || 0;
+            const minutes = parseInt(minutesInput.value) || 0;
+            const seconds = parseInt(secondsInput.value) || 0;
+
+            displayHours.textContent = String(hours).padStart(2, '0');
+            displayMinutes.textContent = String(minutes).padStart(2, '0');
+            displaySeconds.textContent = String(seconds).padStart(2, '0');
+
+            progressBar.style.width = '0%';
+            statusMessage.innerHTML = '';
+            statusMessage.className = '';
+
+            document.title = 'Temporizador de Cuenta Regresiva';
+        }
+
+        // Finalizar temporizador
+        function finishTimer() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            remainingSeconds = 0;
+
+            startBtn.disabled = false;
+            pauseBtn.disabled = true;
+            startBtn.textContent = '▶️ Iniciar';
+            disableInputs(false);
+
+            updateDisplay();
+            showStatus('🎉 ¡Tiempo completado!', 'status-finished');
+
+            // Reproducir sonido (opcional)
+            playNotificationSound();
+
+            // Notificación del navegador
+            if ('Notification' in window && Notification.permission === 'granted') {
+                new Notification('⏱️ Temporizador', {
+                    body: '¡El tiempo ha terminado!',
+                    icon: '⏱️'
+                });
+            }
+        }
+
+        // Mostrar mensaje de estado
+        function showStatus(message, className) {
+            statusMessage.textContent = message;
+            statusMessage.className = 'status-message ' + className;
+        }
+
+        // Deshabilitar/habilitar inputs
+        function disableInputs(disabled) {
+            hoursInput.disabled = disabled;
+            minutesInput.disabled = disabled;
+            secondsInput.disabled = disabled;
+        }
+
+        // Establecer preset de tiempo
+        function setPreset(minutes, seconds, hours) {
+            hoursInput.value = hours;
+            minutesInput.value = minutes;
+            secondsInput.value = seconds;
+            
+            displayHours.textContent = String(hours).padStart(2, '0');
+            displayMinutes.textContent = String(minutes).padStart(2, '0');
+            displaySeconds.textContent = String(seconds).padStart(2, '0');
+        }
+
+        // Reproducir sonido de notificación
+        function playNotificationSound() {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            oscillator.frequency.value = 800;
+            oscillator.type = 'sine';
+
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.5);
+        }
+
+        // Actualizar display cuando cambian los inputs
+        [hoursInput, minutesInput, secondsInput].forEach(input => {
+            input.addEventListener('input', () => {
+                if (!isRunning) {
+                    const hours = parseInt(hoursInput.value) || 0;
+                    const minutes = parseInt(minutesInput.value) || 0;
+                    const seconds = parseInt(secondsInput.value) || 0;
+
+                    displayHours.textContent = String(hours).padStart(2, '0');
+                    displayMinutes.textContent = String(minutes).padStart(2, '0');
+                    displaySeconds.textContent = String(seconds).padStart(2, '0');
+                }
+            });
+        });
+
+        // Soporte de teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                if (isRunning) {
+                    pauseTimer();
+                } else {
+                    startTimer();
+                }
+            }
+            if (e.code === 'KeyR' && e.ctrlKey) {
+                e.preventDefault();
+                resetTimer();
+            }
+        });
+
+        // Solicitar permiso para notificaciones
+        if ('Notification' in window && Notification.permission === 'default') {
+            Notification.requestPermission();
+        }
+
+        // Inicialización
+        updateDisplay();
+    </script>
+</body>
+</html>
