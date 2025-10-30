@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú Desplegable</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .menu-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            min-width: 300px;
+        }
+
+        .menu-item {
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .menu-header {
+            padding: 18px 24px;
+            background: #f8f9fa;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .menu-header:hover {
+            background: #e9ecef;
+        }
+
+        .menu-header.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .menu-title {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .menu-icon {
+            transition: transform 0.3s ease;
+            font-size: 14px;
+        }
+
+        .menu-header.active .menu-icon {
+            transform: rotate(180deg);
+        }
+
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: #ffffff;
+        }
+
+        .submenu.active {
+            max-height: 500px;
+        }
+
+        .submenu-item {
+            padding: 14px 24px 14px 40px;
+            border-top: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #495057;
+        }
+
+        .submenu-item:hover {
+            background: #f8f9fa;
+            padding-left: 45px;
+            color: #667eea;
+        }
+
+        .submenu-item:first-child {
+            border-top: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-container">
+        <div class="menu-item">
+            <div class="menu-header">
+                <span class="menu-title">🏠 Inicio</span>
+                <span class="menu-icon">▼</span>
+            </div>
+            <div class="submenu">
+                <div class="submenu-item">Página Principal</div>
+                <div class="submenu-item">Novedades</div>
+                <div class="submenu-item">Destacados</div>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <div class="menu-header">
+                <span class="menu-title">📦 Productos</span>
+                <span class="menu-icon">▼</span>
+            </div>
+            <div class="submenu">
+                <div class="submenu-item">Electrónica</div>
+                <div class="submenu-item">Ropa</div>
+                <div class="submenu-item">Hogar</div>
+                <div class="submenu-item">Deportes</div>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <div class="menu-header">
+                <span class="menu-title">ℹ️ Información</span>
+                <span class="menu-icon">▼</span>
+            </div>
+            <div class="submenu">
+                <div class="submenu-item">Acerca de</div>
+                <div class="submenu-item">Términos y Condiciones</div>
+                <div class="submenu-item">Política de Privacidad</div>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <div class="menu-header">
+                <span class="menu-title">📞 Contacto</span>
+                <span class="menu-icon">▼</span>
+            </div>
+            <div class="submenu">
+                <div class="submenu-item">Email</div>
+                <div class="submenu-item">Teléfono</div>
+                <div class="submenu-item">Chat en vivo</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Seleccionar todos los encabezados del menú
+        const menuHeaders = document.querySelectorAll('.menu-header');
+
+        // Agregar evento de clic a cada encabezado
+        menuHeaders.forEach(header => {
+            header.addEventListener('click', function() {
+                // Obtener el submenú asociado
+                const submenu = this.nextElementSibling;
+                
+                // Toggle de las clases active
+                this.classList.toggle('active');
+                submenu.classList.toggle('active');
+                
+                // Opcional: cerrar otros menús abiertos
+                menuHeaders.forEach(otherHeader => {
+                    if (otherHeader !== this) {
+                        otherHeader.classList.remove('active');
+                        otherHeader.nextElementSibling.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        // Agregar evento de clic a los elementos del submenú
+        const submenuItems = document.querySelectorAll('.submenu-item');
+        submenuItems.forEach(item => {
+            item.addEventListener('click', function() {
+                alert('Has seleccionado: ' + this.textContent);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,450 +1,282 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Principal Expandible</title>
-    <style>
-        body {
-            background: linear-gradient(to left, #ffffff, #b4b4b4);
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            border-radius: 8px;
-            background: linear-gradient(to right, #ffffff, #dbdbdb);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .accordion {
-            max-width: 1366px;
-            margin: 20px auto;
-        }
-
-        .accordion-item {
-            border: 1px solid #ddd;
-            margin-bottom: 5px;
-            border-radius: 4px;
-        }
-
-        .accordion-header {
-            background-color: #f4f4f4;
-            padding: 15px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .accordion-header:hover {
-            background-color: #e4e4e4;
-        }
-
-        .accordion-content {
-            padding: 0;
-            max-height: 0;
-            overflow: hidden;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .accordion-content.active {
-            padding: 15px;
-            max-height: 2000px;
-            overflow: auto;
-        }
-
-        .content-frame {
-            min-height: 1000px;
-            height: 400px;
-        }
-
-        iframe {
-            width: 100%;
-            height: 400px;
-            border: 1px solid #ccc;
-        }
-
-        a {
-            display: inline-block;
-            background-color: #007BFF;
-            color: #ffffff;
-            text-decoration: none;
-            padding: 8px 12px;
-            border-radius: 4px;
-            margin-bottom: 10px;
-            margin-right: 10px;
-        }
-
-        a:hover {
-            background-color: #0056b3;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Página Principal Expandible Dinámica</title>
+<style>
+    body {
+        background: linear-gradient(to left, #ffffff, #b4b4b4);
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        max-width: 900px;
+        margin: 20px auto;
+        background: linear-gradient(to right, #ffffff, #dbdbdb);
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .accordion {
+        margin: 10px auto;
+        max-width: 1366px;
+    }
+    .accordion-item {
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        margin-bottom: 6px;
+        background: #fff;
+    }
+    .accordion-header {
+        padding: 14px;
+        background-color: #f2f2f2;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .accordion-header:hover {
+        background-color: #e0e0e0;
+    }
+    .accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.3s ease-in-out;
+        padding: 0;
+    }
+    .accordion-content.active {
+        max-height: 2500px;
+        padding: 15px;
+        overflow: auto;
+    }
+    iframe {
+        width: 100%;
+        height: 400px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    a {
+        display: inline-block;
+        background-color: #007BFF;
+        color: #fff;
+        text-decoration: none;
+        padding: 6px 12px;
+        margin: 6px 4px 10px 0;
+        border-radius: 4px;
+    }
+    a:hover { background-color: #0056b3; }
+    h1, h2 { text-align: center; }
+</style>
 </head>
-    
+
 <body>
-    <div class="container">
-        <h1>Bienvenido a mi Página Principal</h1>
-        <p>Esta presentación indica que esta página es la principal desde donde va a visitar las otras tareas. Haz clic en las diferentes secciones para visitar las actividades.</p>
-    </div>
-    
-    <!-- Clase Práctica 1 -->
-    <div class="accordion"> 
-        <div class="accordion-item">
-            <div class="accordion-header">Clase practica 1</div>
-            <div class="accordion-content">
-                
-                <!-- Actividad 1 -->
-                <div class="accordion"> 
-                    <div class="accordion-item">
-                        <div class="accordion-header">Actividad 1</div>
-                        <div class="accordion-content">
-                            <div>
-                                <a href="https://github.com/Zhenden/Programaci-n-web-avanzada/tree/c894893e0ef18629102be4373c0c7efee83c44dc/Clase%20practica%201/Actividad%201" target="_blank">Actividad 1</a>
-                                <a href="Clase practica 1/Actividad 1/curriculum vitae.html" target="_blank">vista completa</a>
-                            </div>
-                            <p><b>Github de la carpeta con la pagina web</b></p>
-                            <iframe src="Clase%20practica%201/Actividad%201/curriculum%20vitae.html" id="content-frame-1" class="content-frame"></iframe>
-                        </div>
-                    </div>
-                </div>
+<div class="container">
+    <h1>Bienvenido a mi Página Principal</h1>
+    <p>Esta página genera dinámicamente las clases, tareas y ejercicios usando un arreglo JavaScript. Puedes ampliarla infinitamente.</p>
+</div>
 
-                <!-- Actividad 2 -->
-                <div class="accordion"> 
-                    <div class="accordion-item">
-                        <div class="accordion-header">Actividad 2</div>
-                        <div class="accordion-content">
-                            <p><b>Github de la carpeta con la pagina web</b></p>
-                            <div>
-                                <a href="https://github.com/Zhenden/Programaci-n-web-avanzada/tree/c894893e0ef18629102be4373c0c7efee83c44dc/Clase%20practica%201/Actividad%202" target="_blank">Actividad 2</a>
-                                <a href="Clase practica 1/Actividad 2/Pagina de servicio.html" target="_blank">vista completa</a>
-                            </div>
-                            <iframe src="Clase practica 1/Actividad 2/Pagina de servicio.html" id="content-frame-2" class="content-frame"></iframe>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-    </div>
+<div id="contenido"></div>
 
-    <!-- Tarea 1 -->
-    <div class="accordion"> 
-        <div class="accordion-item">
-            <div class="accordion-header">Tarea 1 - Ejercicios 1 a 10</div>
-            <div class="accordion-content">
-                
-                <!-- Ejercicio 1 -->
-                <div class="accordion"> 
-                    <div class="accordion-item">
-                        <div class="accordion-header">Tarea 1, Ejercicio 1</div>
-                        <div class="accordion-content">
-                            <p><b>Github de la carpeta con la pagina web</b></p>
-                            <div>
-                                <a href="https://github.com/Zhenden/Programaci-n-web-avanzada/blob/e4a02356e32de182cfa6ca04cc077581adabd872/Tarea%201/ejercicio%20-%201/ejercicio-1.html" target="_blank">Github</a>
-                                <a href="Tarea 1/ejercicio - 1/ejercicio-1.html" target="_blank">Vista completa</a>
-                            </div>
-                            <iframe src="Tarea 1/ejercicio - 1/ejercicio-1.html" id="content-frame-3" class="content-frame"></iframe>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Ejercicio 2 -->
-                <div class="accordion"> 
-                    <div class="accordion-item">
-                        <div class="accordion-header">Tarea 1, Ejercicio 2</div>
-                        <div class="accordion-content">
-                            <p><b>Github de la carpeta con la pagina web</b></p>
-                            <div>
-                                <a href="https://github.com/Zhenden/Programaci-n-web-avanzada/blob/e4a02356e32de182cfa6ca04cc077581adabd872/Tarea%201/ejercicio%20-%202/ejercicio-2.html" target="_blank">Github</a>
-                                <a href="Tarea 1/ejercicio - 2/ejercicio-2.html" target="_blank">Vista completa</a>
-                            </div>
-                            <iframe src="Tarea 1/ejercicio - 2/ejercicio-2.html" id="content-frame-4" class="content-frame"></iframe>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Ejercicio 3 -->
-                <div class="accordion"> 
-                    <div class="accordion-item">
-                        <div class="accordion-header">Tarea 1, Ejercicio 3</div>
-                        <div class="accordion-content">
-                            <p><b>Github de la carpeta con la pagina web</b></p>
-                            <div>
-                                <a href="https://github.com/Zhenden/Programaci-n-web-avanzada/blob/e4a02356e32de182cfa6ca04cc077581adabd872/Tarea%201/ejercicio%20-%203/ejercicio-3.html" target="_blank">Github</a>
-                                <a href="Tarea 1/ejercicio - 3/ejercicio-3.html" target="_blank">Vista completa</a>
-                            </div>
-                            <iframe src="Tarea 1/ejercicio - 3/ejercicio-3.html" id="content-frame-5" class="content-frame"></iframe>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Ejercicio 4 -->
-                <div class="accordion"> 
-                    <div class="accordion-item">
-                        <div class="accordion-header">Tarea 1, Ejercicio 4</div>
-                        <div class="accordion-content">
-                            <p><b>Github de la carpeta con la pagina web</b></p>
-                            <div>
-                                <a href="https://github.com/Zhenden/Programaci-n-web-avanzada/blob/e4a02356e32de182cfa6ca04cc077581adabd872/Tarea%201/ejercicio%20-%204/ejercicio-4.html" target="_blank">Github</a>
-                                <a href="Tarea 1/ejercicio - 4/ejercicio-4.html" target="_blank">Vista completa</a>
-                            </div>
-                            <iframe src="Tarea 1/ejercicio - 4/ejercicio-4.html" id="content-frame-6" class="content-frame"></iframe>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Ejercicio 5 -->
-                <div class="accordion"> 
-                    <div class="accordion-item">
-                        <div class="accordion-header">Tarea 1, Ejercicio 5</div>
-                        <div class="accordion-content">
-                            <p><b>Github de la carpeta con la pagina web</b></p>
-                            <div>
-                                <a href="https://github.com/Zhenden/Programaci-n-web-avanzada/blob/e4a02356e32de182cfa6ca04cc077581adabd872/Tarea%201/ejercicio%20-%205/ejercicio-5.html" target="_blank">Github</a>
-                                <a href="Tarea 1/ejercicio - 5/ejercicio-5.html" target="_blank">Vista completa</a>
-                            </div>
-                            <iframe src="Tarea 1/ejercicio - 5/ejercicio-5.html" id="content-frame-7" class="content-frame"></iframe>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Ejercicio 6 -->
-                <div class="accordion"> 
-                    <div class="accordion-item">
-                        <div class="accordion-header">Tarea 1, Ejercicio 6</div>
-                        <div class="accordion-content">
-                            <p><b>Github de la carpeta con la pagina web</b></p>
-                            <div>
-                                <a href="https://github.com/Zhenden/Programaci-n-web-avanzada/blob/e4a02356e32de182cfa6ca04cc077581adabd872/Tarea%201/ejercicio%20-%206/ejercicio-6.html" target="_blank">Github</a>
-                                <a href="Tarea 1/ejercicio - 6/ejercicio-6.html" target="_blank">Vista completa</a>
-                            </div>
-                            <iframe src="Tarea 1/ejercicio - 6/ejercicio-6.html" id="content-frame-8" class="content-frame"></iframe>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Ejercicio 7,8,9 -->
-                <div class="accordion"> 
-                    <div class="accordion-item">
-                        <div class="accordion-header">Tarea 1, Ejercicio 7,8,9</div>
-                        <div class="accordion-content">
-                            <p><b>Github de la carpeta con la pagina web</b></p>
-                            <div>
-                                <a href="https://github.com/Zhenden/Programaci-n-web-avanzada/blob/e4a02356e32de182cfa6ca04cc077581adabd872/Tarea%201/ejercicio%20-%207%2C8%2C9/ejercicio-7%2C8%2C9.html" target="_blank">Github</a>
-                                <a href="Tarea 1/ejercicio - 7,8,9/ejercicio-7,8,9.html" target="_blank">Vista completa</a>
-                            </div>
-                            <iframe src="Tarea 1/ejercicio - 7,8,9/ejercicio-7,8,9.html" id="content-frame-9" class="content-frame"></iframe>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Ejercicio 10 -->
-                <div class="accordion"> 
-                    <div class="accordion-item">
-                        <div class="accordion-header">Tarea 1, Ejercicio 10</div>
-                        <div class="accordion-content">
-                            <p><b>Github de la carpeta con la pagina web</b></p>
-                            <div>
-                                <a href="https://github.com/Zhenden/Programaci-n-web-avanzada/blob/e4a02356e32de182cfa6ca04cc077581adabd872/Tarea%201/ejercicio%20-%2010/ejercicio-10.html" target="_blank">Github</a>
-                                <a href="Tarea 1/ejercicio - 10/ejercicio-10.html" target="_blank">Vista completa</a>
-                            </div>
-                            <iframe src="Tarea 1/ejercicio - 10/ejercicio-10.html" id="content-frame-10" class="content-frame"></iframe>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-    </div>
+<script>
+// =====================================
+// 🔧 ARRAY ASOCIATIVO DE ESTRUCTURA
+// =====================================
+const estructura = {
+    "Semana 1": {
+        "Clase práctica 1": {
+            "Actividad 1": {
+                github: "https://github.com/Zhenden/Programaci-n-web-avanzada/tree/c894893e0ef18629102be4373c0c7efee83c44dc/Clase%20practica%201/Actividad%201",
+                vista: "Clase%20practica%201/Actividad%201/curriculum%20vitae.html"
+            },
+            "Actividad 2": {
+                github: "https://github.com/Zhenden/Programaci-n-web-avanzada/tree/c894893e0ef18629102be4373c0c7efee83c44dc/Clase%20practica%201/Actividad%202",
+                vista: "Semana 1/Clase practica 1/Actividad 2/Pagina de servicio.html"
+            }
+        },
+        "Tarea 1": {
+            "Ejercicio 1": {
+                github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/e4a02356e32de182cfa6ca04cc077581adabd872/Tarea%201/ejercicio%20-%201/ejercicio-1.html",
+                vista: "Semana 1/Tarea 1/ejercicio - 1/ejercicio-1.html"
+            },
+            "Ejercicio 2": {
+                github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/e4a02356e32de182cfa6ca04cc077581adabd872/Tarea%201/ejercicio%20-%202/ejercicio-2.htm",
+                vista: "Semana 1/Tarea 1/ejercicio - 2/ejercicio-2.html"
+            },
+            "Ejercicio 3": {
+                github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/e4a02356e32de182cfa6ca04cc077581adabd872/Tarea%201/ejercicio%20-%203/ejercicio-3.html",
+                vista: "Semana 1/Tarea 1/ejercicio - 3/ejercicio-3.html"
+            },
+            "Ejercicio 4": {
+                github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/e4a02356e32de182cfa6ca04cc077581adabd872/Tarea%201/ejercicio%20-%204/ejercicio-4.html",
+                vista: "Semana 1/Tarea 1/ejercicio - 4/ejercicio-4.html"
+            },
+            "Ejercicio 5": {
+                github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/e4a02356e32de182cfa6ca04cc077581adabd872/Tarea%201/ejercicio%20-%205/ejercicio-5.html",
+                vista: "Semana 1/Tarea 1/ejercicio - 5/ejercicio-5.html"
+            },
+            "Ejercicio 6": {
+                github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/e4a02356e32de182cfa6ca04cc077581adabd872/Tarea%201/ejercicio%20-%206/ejercicio-6.html",
+                vista: "Semana 1/Tarea 1/ejercicio - 6/ejercicio-6.html"
+            },
+            "Ejercicio 7,8,9": {
+                github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/e4a02356e32de182cfa6ca04cc077581adabd872/Tarea%201/ejercicio%20-%207%2C8%2C9/ejercicio-7%2C8%2C9.html",
+                vista: "Semana 1/Tarea 1/ejercicio - 7,8,9/ejercicio-7,8,9.html"
+            },
 
-    <!-- Clase Práctica 2 -->
-    <div class="accordion"> 
-        <div class="accordion-item">
-            <div class="accordion-header">Clase practica 2</div>
-            <div class="accordion-content">
-                <div class="accordion"> 
-                    <div class="accordion-item">
-                        <div class="accordion-header">ejercicio 1</div>
-                        <div class="accordion-content">
-                            <div>
-                                <a href="https://github.com/Zhenden/Programaci-n-web-avanzada/blob/d90e4022fee94969f12c0dfe949d4112a006d22b/Clase%20practica%202/ejercicio-1.html" target="_blank">ejercicio 1</a>
-                                <a href="Clase practica 2/ejercicio-1.html" target="_blank">vista completa</a>
-                            </div>
-                            <p><b>Github de la carpeta con la pagina web</b></p>
-                            <iframe src="Clase practica 2/ejercicio-1.html" class="content-frame"></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+            "Ejercicio 10": {
+                github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/e4a02356e32de182cfa6ca04cc077581adabd872/Tarea%201/ejercicio%20-%2010/ejercicio-10.html",
+                vista: "Semana 1/Tarea 1/ejercicio - 10/ejercicio-10.html"
+            }
+        }
+    },
+    "Semana 2": {
+        "Clase práctica 2": {
+            "Ejercicio 1": {
+                github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/8e0576fd2d4e496f2e3deab2e5cc3a0fbb2e7ad8/Clase%20practica%202/ejercicio-1.html",
+                vista: "Semana 2/Clase práctica 2/ejercicio-1.html"
+            }
+        },
+        "Tarea 2": {
+            "Ejercicio 1": {
+                github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/8e0576fd2d4e496f2e3deab2e5cc3a0fbb2e7ad8/Tarea%202/ejercicio%201/ejercicio-1.html",
+                vista: "Semana 2/Tarea 2/ejercicio 1/ejercicio-1.html"
+            },
+            "Ejercicio 2": {
+                github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/8e0576fd2d4e496f2e3deab2e5cc3a0fbb2e7ad8/Tarea%202/ejercicio%202/ejercicio-2.html",
+                vista: "Semana 2/Tarea 2/ejercicio 2/ejercicio-2.html"
+            },
+            "Ejercicio 3": {
+                github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/8e0576fd2d4e496f2e3deab2e5cc3a0fbb2e7ad8/Tarea%202/ejercicio%203/ejercicio-3.html",
+                vista: " Semana 2/Tarea 2/ejercicio 3/ejercicio-3.html"
+            },
+            "Ejercicio 4": {
+                github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/8e0576fd2d4e496f2e3deab2e5cc3a0fbb2e7ad8/Tarea%202/ejercicio%204/ejercicio-4.html",
+                vista: " Semana 2/Tarea 2/ejercicio 4/ejercicio-4.html"
+            },
+            "Ejercicio 5": {
+                github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/8e0576fd2d4e496f2e3deab2e5cc3a0fbb2e7ad8/Tarea%202/ejercicio%205/ejercicio-5.html",
+                vista: " Semana 2/Tarea 2/ejercicio 5/ejercicio-5.html"
+            },
+            "Ejercicio 6": {
+                github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/8e0576fd2d4e496f2e3deab2e5cc3a0fbb2e7ad8/Tarea%202/ejercicio%206/ejercicio-6.html",
+                vista: " Semana 2/Tarea 2/ejercicio 6/ejercicio-6.html"
+            },
+            "Ejercicio 7": {
+                github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/8e0576fd2d4e496f2e3deab2e5cc3a0fbb2e7ad8/Tarea%202/ejercicio%207/ejercicio-7.html",
+                vista: " Semana 2/Tarea 2/ejercicio 7/ejercicio-7.html"
+            },
+            "Ejercicio 8": {
+                github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/8e0576fd2d4e496f2e3deab2e5cc3a0fbb2e7ad8/Tarea%202/ejercicio%208/ejercicio-8.html",
+                vista: " Semana 2/Tarea 2/ejercicio 8/ejercicio-8.html"
+            },
+            "Ejercicio 9": {
+                github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/8e0576fd2d4e496f2e3deab2e5cc3a0fbb2e7ad8/Tarea%202/ejercicio%209/ejercicio-9.html",
+                vista: " Semana 2/Tarea 2/ejercicio 9/ejercicio-9.html"
+            },
+            "Ejercicio 10": {
+                github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/8e0576fd2d4e496f2e3deab2e5cc3a0fbb2e7ad8/Tarea%202/ejercicio%2010/ejercicio-10.html",
+                vista: " Semana 2/Tarea 2/ejercicio 10/ejercicio-10.html"
+            }
 
-    <!-- Tarea 2 -->
-    <div class="accordion"> 
-        <div class="accordion-item">
-            <div class="accordion-header">Tarea 2</div>
-            <div class="accordion-content">
-                <div class="accordion">
-                    
-                    <!-- Ejercicio 1 -->
-                    <div class="accordion-item">
-                        <div class="accordion-header">ejercicio 1</div>
-                        <div class="accordion-content">
-                            <div>
-                                <a href="https://github.com/Zhenden/Programaci-n-web-avanzada/blob/d90e4022fee94969f12c0dfe949d4112a006d22b/Tarea%202/ejercicio%201/ejercicio-1.html" target="_blank">ejercicio 1</a>
-                                <a href="Tarea 2/ejercicio 1/ejercicio-1.html" target="_blank">vista completa</a>
-                            </div>
-                            <p><b>Github de la carpeta con la pagina web</b></p>
-                            <iframe src="Tarea 2/ejercicio 1/ejercicio-1.html" class="content-frame"></iframe>
-                        </div>
-                    </div>
-                    
-                    <!-- Ejercicio 2 -->
-                    <div class="accordion-item">
-                        <div class="accordion-header">ejercicio 2</div>
-                        <div class="accordion-content">
-                            <div>
-                                <a href="https://github.com/Zhenden/Programaci-n-web-avanzada/blob/d90e4022fee94969f12c0dfe949d4112a006d22b/Tarea%202/ejercicio%202/ejercicio-2.html" target="_blank">ejercicio 2</a>
-                                <a href="Tarea 2/ejercicio 2/ejercicio-2.html" target="_blank">vista completa</a>
-                            </div>
-                            <p><b>Github de la carpeta con la pagina web</b></p>
-                            <iframe src="Tarea 2/ejercicio 2/ejercicio-2.html" class="content-frame"></iframe>
-                        </div>
-                    </div>
-                    
-                    <!-- Ejercicio 3 -->
-                    <div class="accordion-item">
-                        <div class="accordion-header">ejercicio 3</div>
-                        <div class="accordion-content">
-                            <div>
-                                <a href="https://github.com/Zhenden/Programaci-n-web-avanzada/blob/d90e4022fee94969f12c0dfe949d4112a006d22b/Tarea%202/ejercicio%203/ejercicio-3.html" target="_blank">ejercicio 3</a>
-                                <a href="Tarea 2/ejercicio 3/ejercicio-3.html" target="_blank">vista completa</a>
-                            </div>
-                            <p><b>Github de la carpeta con la pagina web</b></p>
-                            <iframe src="Tarea 2/ejercicio 3/ejercicio-3.html" class="content-frame"></iframe>
-                        </div>
-                    </div>
-                    
-                    <!-- Ejercicio 4 -->
-                    <div class="accordion-item">
-                        <div class="accordion-header">ejercicio 4</div>
-                        <div class="accordion-content">
-                            <div>
-                                <a href="https://github.com/Zhenden/Programaci-n-web-avanzada/blob/d90e4022fee94969f12c0dfe949d4112a006d22b/Tarea%202/ejercicio%204/ejercicio-4.html" target="_blank">ejercicio 4</a>
-                                <a href="Tarea 2/ejercicio 4/ejercicio-4.html" target="_blank">vista completa</a>
-                            </div>
-                            <p><b>Github de la carpeta con la pagina web</b></p>
-                            <iframe src="Tarea 2/ejercicio 4/ejercicio-4.html" class="content-frame"></iframe>
-                        </div>
-                    </div>
-                    
-                    <!-- Ejercicio 5 -->
-                    <div class="accordion-item">
-                        <div class="accordion-header">ejercicio 5</div>
-                        <div class="accordion-content">
-                            <div>
-                                <a href="https://github.com/Zhenden/Programaci-n-web-avanzada/blob/d90e4022fee94969f12c0dfe949d4112a006d22b/Tarea%202/ejercicio%205/ejercicio-5.html" target="_blank">ejercicio 5</a>
-                                <a href="Tarea 2/ejercicio 5/ejercicio-5.html" target="_blank">vista completa</a>
-                            </div>
-                            <p><b>Github de la carpeta con la pagina web</b></p>
-                            <iframe src="Tarea 2/ejercicio 5/ejercicio-5.html" class="content-frame"></iframe>
-                        </div>
-                    </div>
-                    
-                    <!-- Ejercicio 6 -->
-                    <div class="accordion-item">
-                        <div class="accordion-header">ejercicio 6</div>
-                        <div class="accordion-content">
-                            <div>
-                                <a href="https://github.com/Zhenden/Programaci-n-web-avanzada/blob/d90e4022fee94969f12c0dfe949d4112a006d22b/Tarea%202/ejercicio%206/ejercicio-6.html" target="_blank">ejercicio 6</a>
-                                <a href="Tarea 2/ejercicio 6/ejercicio-6.html" target="_blank">vista completa</a>
-                            </div>
-                            <p><b>Github de la carpeta con la pagina web</b></p>
-                            <iframe src="Tarea 2/ejercicio 6/ejercicio-6.html" class="content-frame"></iframe>
-                        </div>
-                    </div>
-                    
-                    <!-- Ejercicio 7 -->
-                    <div class="accordion-item">
-                        <div class="accordion-header">ejercicio 7</div>
-                        <div class="accordion-content">
-                            <div>
-                                <a href="https://github.com/Zhenden/Programaci-n-web-avanzada/blob/d90e4022fee94969f12c0dfe949d4112a006d22b/Tarea%202/ejercicio%207/ejercicio-7.html" target="_blank">ejercicio 7</a>
-                                <a href="Tarea 2/ejercicio 7/ejercicio-7.html" target="_blank">vista completa</a>
-                            </div>
-                            <p><b>Github de la carpeta con la pagina web</b></p>
-                            <iframe src="Tarea 2/ejercicio 7/ejercicio-7.html" class="content-frame"></iframe>
-                        </div>
-                    </div>
-                    
-                    <!-- Ejercicio 8 -->
-                    <div class="accordion-item">
-                        <div class="accordion-header">ejercicio 8</div>
-                        <div class="accordion-content">
-                            <div>
-                                <a href="https://github.com/Zhenden/Programaci-n-web-avanzada/blob/d90e4022fee94969f12c0dfe949d4112a006d22b/Tarea%202/ejercicio%208/ejercicio-8.html" target="_blank">ejercicio 8</a>
-                                <a href="Tarea 2/ejercicio 8/ejercicio-8.html" target="_blank">vista completa</a>
-                            </div>
-                            <p><b>Github de la carpeta con la pagina web</b></p>
-                            <iframe src="Tarea 2/ejercicio 8/ejercicio-8.html" class="content-frame"></iframe>
-                        </div>
-                    </div>
-                    
-                    <!-- Ejercicio 9 -->
-                    <div class="accordion-item">
-                        <div class="accordion-header">ejercicio 9</div>
-                        <div class="accordion-content">
-                            <div>
-                                <a href="https://github.com/Zhenden/Programaci-n-web-avanzada/blob/d90e4022fee94969f12c0dfe949d4112a006d22b/Tarea%202/ejercicio%209/ejercicio-9.html" target="_blank">ejercicio 9</a>
-                                <a href="Tarea 2/ejercicio 9/ejercicio-9.html" target="_blank">vista completa</a>
-                            </div>
-                            <p><b>Github de la carpeta con la pagina web</b></p>
-                            <iframe src="Tarea 2/ejercicio 9/ejercicio-9.html" class="content-frame"></iframe>
-                        </div>
-                    </div>
-                    
-                    <!-- Ejercicio 10 -->
-                    <div class="accordion-item">
-                        <div class="accordion-header">ejercicio 10</div>
-                        <div class="accordion-content">
-                            <div>
-                                <a href="https://github.com/Zhenden/Programaci-n-web-avanzada/blob/d90e4022fee94969f12c0dfe949d4112a006d22b/Tarea%202/ejercicio%2010/ejercicio-10.html" target="_blank">ejercicio 10</a>
-                                <a href="Tarea 2/ejercicio 10/ejercicio-10.html" target="_blank">vista completa</a>
-                            </div>
-                            <p><b>Github de la carpeta con la pagina web</b></p>
-                            <iframe src="Tarea 2/ejercicio 10/ejercicio-10.html" class="content-frame"></iframe>
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <script>
-        document.querySelectorAll('.accordion-header').forEach(button => {
-            button.addEventListener('click', () => {
-                const content = button.nextElementSibling;
-                const isActive = content.classList.contains('active');
-                
-                // Find all accordion items at the same level
-                const parentItem = button.closest('.accordion-item');
-                if (parentItem && parentItem.parentElement) {
-                    // Close all sibling accordion contents
-                    parentItem.parentElement.querySelectorAll('.accordion-content').forEach(item => {
-                        if (item !== content) {
-                            item.classList.remove('active');
-                        }
-                    });
-                }
-                
-                // Toggle current section
-                content.classList.toggle('active');
-            });
-        });
-    </script>
+            
+        }
+    },
+    "Semana 3": {
+        "Clase práctica 3": {
+            "Actividad 1": {
+                github: "",
+                vista: "Semana 3/Clase práctica 3/index.php"
+            }
+        },
+        "Tarea 3": {
+            "Ejercicio 1": {
+                github: "",
+                vista: "Semana 3/Tarea practica 3/ejercicio-1/ejercicio-1.html"
+            },
+            "Ejercicio 2": {
+                github: "",
+                vista: "Semana 3/Tarea practica 3/ejercicio-2/ejercicio-2.html"
+            },
+            "Ejercicio 3": {
+                github: "",
+                vista: "Semana 3/Tarea practica 3/ejercicio-3/ejercicio-3.html"
+            },
+            "Ejercicio 4": {
+                github: "",
+                vista: "Semana 3/Tarea practica 3/ejercicio-4/ejercicio-4.php"
+            },
+            "Ejercicio 5": {
+                github: "",
+                vista: "Semana 3/Tarea practica 3/ejercicio-5/ejercicio-5.php"
+            },
+            "Ejercicio 6": {
+                github: "",
+                vista: "Semana 3/Tarea practica 3/ejercicio-6/login.php"
+            }    
+        }
+    }
+};
+
+// =====================================
+// 🧱 FUNCIÓN PARA CREAR ACORDEONES RECURSIVOS
+// =====================================
+function crearAccordion(data) {
+    const container = document.createElement('div');
+    container.classList.add('accordion');
+
+    for (const [titulo, contenido] of Object.entries(data)) {
+        const item = document.createElement('div');
+        item.classList.add('accordion-item');
+
+        const header = document.createElement('div');
+        header.classList.add('accordion-header');
+        header.textContent = titulo;
+
+        const content = document.createElement('div');
+        content.classList.add('accordion-content');
+
+        // Si el valor es otro objeto (subcarpetas)
+        if (typeof contenido === 'object' && !contenido.github) {
+            content.appendChild(crearAccordion(contenido));
+        } else if (contenido.github && contenido.vista) {
+            const links = `
+                <p><b>Github de la carpeta con la página web</b></p>
+                <a href="${contenido.github}" target="_blank">Github</a>
+                <a href="${contenido.vista}" target="_blank">Vista completa</a>
+                <iframe src="${contenido.vista}" class="content-frame"></iframe>
+            `;
+            content.innerHTML = links;
+        }
+
+        item.appendChild(header);
+        item.appendChild(content);
+        container.appendChild(item);
+    }
+
+    return container;
+}
+
+// =====================================
+// ⚙️ GENERAR TODO EL CONTENIDO
+// =====================================
+document.getElementById('contenido').appendChild(crearAccordion(estructura));
+
+// =====================================
+// 🎛️ EVENTOS DE INTERACCIÓN DE ACORDEÓN
+// =====================================
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('accordion-header')) {
+        const content = e.target.nextElementSibling;
+        const isActive = content.classList.contains('active');
+
+        // Cierra todos los demás acordeones del mismo nivel
+        const parent = e.target.closest('.accordion');
+        parent.querySelectorAll('.accordion-content').forEach(el => el.classList.remove('active'));
+
+        // Activa el actual
+        if (!isActive) content.classList.add('active');
+    }
+});
+</script>
 </body>
 </html>

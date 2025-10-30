@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Contacto</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .form-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .form-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .form-subtitle {
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .error {
+            border-color: #e74c3c !important;
+            background: #fff5f5 !important;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .success {
+            border-color: #27ae60 !important;
+            background: #f0fff4 !important;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .success-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .success-modal.show {
+            display: flex;
+        }
+
+        .success-content {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 400px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .success-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .success-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #27ae60;
+            margin-bottom: 10px;
+        }
+
+        .success-text {
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .close-btn {
+            padding: 12px 30px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: #5568d3;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1 class="form-title">📬 Contáctanos</h1>
+        <p class="form-subtitle">Completa el formulario y nos pondremos en contacto contigo</p>
+
+        <form id="contactForm" novalidate>
+            <div class="form-group">
+                <label for="name">Nombre Completo <span class="required">*</span></label>
+                <input 
+                    type="text" 
+                    id="name" 
+                    name="name" 
+                    placeholder="Ingresa tu nombre completo"
+                >
+                <span class="error-message" id="nameError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Correo Electrónico <span class="required">*</span></label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    placeholder="tucorreo@ejemplo.com"
+                >
+                <span class="error-message" id="emailError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Mensaje <span class="required">*</span></label>
+                <textarea 
+                    id="message" 
+                    name="message" 
+                    placeholder="Escribe tu mensaje aquí..."
+                ></textarea>
+                <span class="error-message" id="messageError"></span>
+            </div>
+
+            <button type="submit" class="submit-btn">Enviar Mensaje</button>
+        </form>
+    </div>
+
+    <div class="success-modal" id="successModal">
+        <div class="success-content">
+            <div class="success-icon">✅</div>
+            <h2 class="success-title">¡Mensaje Enviado!</h2>
+            <p class="success-text">Gracias por contactarnos. Te responderemos pronto.</p>
+            <button class="close-btn" onclick="closeModal()">Cerrar</button>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('contactForm');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const messageInput = document.getElementById('message');
+
+        // Función para validar el nombre
+        function validateName() {
+            const nameError = document.getElementById('nameError');
+            const name = nameInput.value.trim();
+
+            if (name === '') {
+                showError(nameInput, nameError, 'El nombre es obligatorio');
+                return false;
+            } else if (name.length < 3) {
+                showError(nameInput, nameError, 'El nombre debe tener al menos 3 caracteres');
+                return false;
+            } else if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(name)) {
+                showError(nameInput, nameError, 'El nombre solo puede contener letras');
+                return false;
+            } else {
+                showSuccess(nameInput, nameError);
+                return true;
+            }
+        }
+
+        // Función para validar el email
+        function validateEmail() {
+            const emailError = document.getElementById('emailError');
+            const email = emailInput.value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (email === '') {
+                showError(emailInput, emailError, 'El correo electrónico es obligatorio');
+                return false;
+            } else if (!emailRegex.test(email)) {
+                showError(emailInput, emailError, 'Ingresa un correo electrónico válido');
+                return false;
+            } else {
+                showSuccess(emailInput, emailError);
+                return true;
+            }
+        }
+
+        // Función para validar el mensaje
+        function validateMessage() {
+            const messageError = document.getElementById('messageError');
+            const message = messageInput.value.trim();
+
+            if (message === '') {
+                showError(messageInput, messageError, 'El mensaje es obligatorio');
+                return false;
+            } else if (message.length < 10) {
+                showError(messageInput, messageError, 'El mensaje debe tener al menos 10 caracteres');
+                return false;
+            } else if (message.length > 500) {
+                showError(messageInput, messageError, 'El mensaje no puede exceder 500 caracteres');
+                return false;
+            } else {
+                showSuccess(messageInput, messageError);
+                return true;
+            }
+        }
+
+        // Mostrar error
+        function showError(input, errorElement, message) {
+            input.classList.add('error');
+            input.classList.remove('success');
+            errorElement.textContent = message;
+            errorElement.classList.add('show');
+        }
+
+        // Mostrar éxito
+        function showSuccess(input, errorElement) {
+            input.classList.remove('error');
+            input.classList.add('success');
+            errorElement.classList.remove('show');
+        }
+
+        // Validación en tiempo real
+        nameInput.addEventListener('blur', validateName);
+        emailInput.addEventListener('blur', validateEmail);
+        messageInput.addEventListener('blur', validateMessage);
+
+        // Validación al enviar el formulario
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const isNameValid = validateName();
+            const isEmailValid = validateEmail();
+            const isMessageValid = validateMessage();
+
+            if (isNameValid && isEmailValid && isMessageValid) {
+                // Aquí normalmente enviarías los datos al servidor
+                console.log('Formulario válido - Datos:', {
+                    nombre: nameInput.value.trim(),
+                    email: emailInput.value.trim(),
+                    mensaje: messageInput.value.trim()
+                });
+
+                // Mostrar modal de éxito
+                document.getElementById('successModal').classList.add('show');
+
+                // Limpiar formulario
+                form.reset();
+                nameInput.classList.remove('success');
+                emailInput.classList.remove('success');
+                messageInput.classList.remove('success');
+            }
+        });
+
+        // Cerrar modal
+        function closeModal() {
+            document.getElementById('successModal').classList.remove('show');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Índice de ejercicios</title>
+    <style>
+        body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; padding:20px; max-width:900px; margin:auto; }
+        header { display:flex; gap:12px; align-items:center; margin-bottom:18px; }
+        input[type="search"]{ flex:1; padding:8px 10px; font-size:15px; }
+        .list { display:flex; flex-direction:column; gap:6px; }
+        .item { padding:10px 12px; border:1px solid #e0e0e0; border-radius:6px; display:flex; justify-content:space-between; align-items:center; background:#fff; }
+        .meta { color:#666; font-size:13px; }
+        a { color:#0b66c3; text-decoration:none; }
+        a:hover { text-decoration:underline; }
+        .notice { color:#555; font-size:13px; margin-top:12px; }
+        .actions { display:flex; gap:8px; align-items:center; }
+        button { padding:8px 10px; border-radius:6px; border:1px solid #ccc; background:#f7f7f7; cursor:pointer; }
+        button:active{ transform:translateY(1px) }
+        footer { margin-top:18px; color:#666; font-size:13px; }
+        pre.sample { background:#f4f4f4; padding:10px; border-radius:6px; overflow:auto; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 style="margin:0; font-size:20px;">Índice de ejercicios</h1>
+        <div style="flex:1"></div>
+        <div class="actions">
+            <input id="search" type="search" placeholder="Buscar ejercicio..." aria-label="Buscar ejercicios">
+            <button id="reload">Recargar</button>
+        </div>
+    </header>
+
+    <section id="content">
+        <div id="list" class="list" aria-live="polite"></div>
+        <div id="empty" class="notice" hidden>No se encontraron ejercicios.</div>
+        <div id="error" class="notice" hidden></div>
+
+        <footer>
+            <div>Formato aceptado en <code>exercises.txt</code> (archivo en la misma carpeta que este index):</div>
+            <pre class="sample">
+# 3 formatos soportados (por línea) -- las líneas que empiezan con # se ignoran
+id|Título del ejercicio|ruta/o/url
+Título del ejercicio|ruta/o/url
+ruta/o/url
+            </pre>
+            <div class="notice">También puede usar JSON: un array de objetos [{ "id":"ej1", "title":"Ej 1", "url":"ej1/index.html" }, ...] o un objeto { "ej1": {"title":"Ej 1", "url":"..."} }</div>
+        </footer>
+    </section>
+
+    <script>
+        // Archivo que será leído (colóquelo en la misma carpeta que index.html)
+        const TXT_PATH = './exercises.txt';
+
+        // Estado
+        let exercises = {}; // objeto asociativo: id -> { title, url }
+
+        // Elementos
+        const listEl = document.getElementById('list');
+        const emptyEl = document.getElementById('empty');
+        const errorEl = document.getElementById('error');
+        const searchEl = document.getElementById('search');
+        const reloadBtn = document.getElementById('reload');
+
+        // Cargar y renderizar
+        async function load() {
+            showError('', false);
+            try {
+                const res = await fetch(TXT_PATH + '?_=' + Date.now());
+                if (!res.ok) throw new Error('No se pudo obtener ' + TXT_PATH + ' (HTTP ' + res.status + ')');
+                const txt = await res.text();
+                exercises = parseTxt(txt);
+                render();
+            } catch (err) {
+                showError('Error al leer ' + TXT_PATH + ': ' + err.message, true);
+                exercises = {};
+                render();
+            }
+        }
+
+        function showError(msg, show=true){
+            errorEl.textContent = msg;
+            errorEl.hidden = !show;
+        }
+
+        // Parsea texto. Soporta JSON o líneas tipo id|title|url  OR  title|url  OR  url
+        function parseTxt(data){
+            data = (data || '').trim();
+            if (!data) return {};
+            // Intentar JSON
+            try {
+                const j = JSON.parse(data);
+                const obj = {};
+                if (Array.isArray(j)) {
+                    j.forEach((it, i) => {
+                        if (typeof it === 'string') obj['e'+i] = { title: it, url: it };
+                        else {
+                            const id = it.id || it.slug || ('e'+i);
+                            const title = it.title || it.name || it.label || it.url || id;
+                            const url = it.url || it.href || title;
+                            obj[id] = { title, url };
+                        }
+                    });
+                } else if (typeof j === 'object') {
+                    // objeto asoc: id -> { title, url } or id -> url/string
+                    Object.keys(j).forEach(k => {
+                        const v = j[k];
+                        if (typeof v === 'string') obj[k] = { title: v, url: v };
+                        else obj[k] = { title: v.title || v.name || v.label || k, url: v.url || v.href || '' };
+                    });
+                }
+                return obj;
+            } catch (e) {
+                // no JSON -> parse de líneas
+                const lines = data.split(/\r?\n/).map(l => l.trim()).filter(l => l && !l.startsWith('#'));
+                const obj = {};
+                lines.forEach((line, i) => {
+                    const parts = line.split('|').map(p => p.trim());
+                    let id, title, url;
+                    if (parts.length === 3) { id = parts[0] || ('e'+i); title = parts[1] || parts[2]; url = parts[2]; }
+                    else if (parts.length === 2) { id = 'e'+i; title = parts[0] || parts[1]; url = parts[1]; }
+                    else { id = 'e'+i; title = parts[0]; url = parts[0]; }
+                    obj[id] = { title, url };
+                });
+                return obj;
+            }
+        }
+
+        // Renderiza la lista con filtro
+        function render() {
+            const query = (searchEl.value || '').toLowerCase().trim();
+            const entries = Object.entries(exercises)
+                .map(([id, v]) => ({ id, title: (v.title||v.url||id), url: v.url || v.title }))
+                .sort((a,b) => a.title.localeCompare(b.title, undefined, {numeric:true}));
+
+            listEl.innerHTML = '';
+            const filtered = entries.filter(e => !query || e.title.toLowerCase().includes(query) || e.id.toLowerCase().includes(query));
+            if (filtered.length === 0) {
+                emptyEl.hidden = false;
+                return;
+            }
+            emptyEl.hidden = true;
+            for (const e of filtered) {
+                const item = document.createElement('div');
+                item.className = 'item';
+
+                const left = document.createElement('div');
+                left.innerHTML = '<div style="font-weight:600">' + escapeHtml(e.title) + '</div>' +
+                                                 '<div class="meta">' + escapeHtml(e.id) + '</div>';
+
+                const right = document.createElement('div');
+                const a = document.createElement('a');
+                a.href = e.url;
+                a.textContent = 'Abrir';
+                a.target = '_blank';
+                a.rel = 'noopener noreferrer';
+                right.appendChild(a);
+
+                item.appendChild(left);
+                item.appendChild(right);
+                listEl.appendChild(item);
+            }
+        }
+
+        // Pequeña utilidad para evitar inyección al insertar texto en HTML
+        function escapeHtml(str){
+            return String(str).replace(/[&<>"']/g, function(m){
+                return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m];
+            });
+        }
+
+        // Eventos
+        searchEl.addEventListener('input', render);
+        reloadBtn.addEventListener('click', load);
+
+        // Inicial
+        load();
+    </script>
+</body>
+</html>
