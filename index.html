@@ -73,6 +73,7 @@
 <div class="container">
     <h1>Bienvenido a mi Página Principal</h1>
     <p>Esta página genera dinámicamente las clases, tareas y ejercicios usando un arreglo JavaScript. Puedes ampliarla infinitamente.</p>
+    <p><b>Recomiendo bastante descargar toda la carpeta de la semana 3 e insertarla en htdocs de xampp para visualizar los documentos php</b></p>
 </div>
 
 <div id="contenido"></div>
@@ -182,33 +183,8 @@ const estructura = {
         }
     },
     "Semana 3": {
-        "Clase práctica 3": {
-            "Actividad 1": {
-                github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/a92c9ec50b04a3e63524926d139569d3aab3331a/Semana%203/Clase%20practica%203/index.php",
-            }
-        },
-        "Tarea 3": {
-            "Ejercicio 1": {
-                github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/8b09fddb32777b12c5f0ae493f980e8923104fbd/Semana%203/Tarea%20practica%203/ejercicio-1/ejercicio-1.html",
-                vista: "Semana 3/Tarea practica 3/ejercicio-1/ejercicio-1.html"
-            },
-            "Ejercicio 2": {
-                github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/8b09fddb32777b12c5f0ae493f980e8923104fbd/Semana%203/Tarea%20practica%203/ejercicio-2/ejercicio-2.html",
-                vista: "Semana 3/Tarea practica 3/ejercicio-2/ejercicio-2.html"
-            },
-            "Ejercicio 3": {
-                github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/8b09fddb32777b12c5f0ae493f980e8923104fbd/Semana%203/Tarea%20practica%203/ejercicio-3/ejercicio-3.php",
-            },
-            "Ejercicio 4": {
-                github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/8b09fddb32777b12c5f0ae493f980e8923104fbd/Semana%203/Tarea%20practica%203/ejercicio-4/ejercicio-4.php",
-            },
-            "Ejercicio 5": {
-                github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/8b09fddb32777b12c5f0ae493f980e8923104fbd/Semana%203/Tarea%20practica%203/ejercicio-5/ejercicio-5.php",
-            },
-            "Ejercicio 6": {
-                github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/8b09fddb32777b12c5f0ae493f980e8923104fbd/Semana%203/Tarea%20practica%203/ejercicio-6/login.php",
-            }    
-        }
+        github: "https://github.com/Zhenden/Programaci-n-web-avanzada/tree/a92c9ec50b04a3e63524926d139569d3aab3331a/Semana%203",
+        vista: "Semana 3/index.html"
     }
 };
 
@@ -243,7 +219,7 @@ function crearAccordion(data) {
             content.innerHTML = links;
         } else if (contenido.github) {
             const links = `
-                <p><b>Github de la carpeta con la página web</b></p>
+                <p><b>Github de la carpeta con la página web (PHP)</b></p>
                 <a href="${contenido.github}" target="_blank">Github</a>
             `;
             content.innerHTML = links;
