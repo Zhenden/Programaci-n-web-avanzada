@@ -52,11 +52,11 @@
                 
                 <div class="product">
                     <h2><?php echo $producto1["nombre"]; ?></h2>
-                    <?php echo $producto1["precio"]; ?> <br>
+                    <p>Precio <?php echo $producto1["precio"]; ?> <br></p>
                     <?php echo $producto1["descripcion"]; ?> <br>
                 </div>
                 <div class="product_image">
-                    <img src="https://picsum.photos/id/1015/200/200" alt="imagen1">
+                    <img src="https://picsum.photos/id/1015/1000/1000" alt="imagen1">
                 </div>
                 <div>
                     <button type="button" id="boton1">Agregar al carrito</button>
@@ -67,11 +67,11 @@
                 
                 <div class="product">
                     <h2><?php echo $producto2["nombre"]; ?></h2>
-                    <?php echo $producto2["precio"]; ?> <br>
+                    <p>Precio <?php echo $producto2["precio"]; ?> <br></p>
                     <?php echo $producto2["descripcion"]; ?> <br>
                 </div>
                 <div class="product_image">
-                    <img src="https://picsum.photos/id/1016/200/200" alt="imagen2">
+                    <img src="https://picsum.photos/id/1016/1000/1000" alt="imagen2">
                 </div>
                 <div>
                     <button type="button" id="boton2">Agregar al carrito</button>
@@ -80,11 +80,11 @@
             <div class="container2">
                 <div class="product">
                     <h2><?php echo $producto3["nombre"]; ?></h2>
-                    <?php echo $producto3["precio"]; ?> <br>
+                    <p>Precio <?php echo $producto3["precio"]; ?> <br></p>
                     <?php echo $producto3["descripcion"]; ?> <br>
                 </div>
                 <div class="product_image">
-                    <img src="https://picsum.photos/id/1000/200/200" alt="imagen3">
+                    <img src="https://picsum.photos/id/1000/1000/1000" alt="imagen3">
                 </div>
                 <div>
                     <button type="button" id="boton3">Agregar al carrito</button>
@@ -93,11 +93,11 @@
             <div class="container2">
                 <div class="product">
                     <h2><?php echo $producto4["nombre"];?></h2>
-                    <?php echo $producto4["precio"]; ?> <br>
+                    <p>Precio <?php echo $producto4["precio"]; ?> <br></p>
                     <?php echo $producto4["descripcion"]; ?> <br>
                 </div>
                 <div class="product_image">
-                    <img src="https://picsum.photos/id/1018/200/200" alt="imagen4">
+                    <img src="https://picsum.photos/id/1018/1000/1000" alt="imagen4">
                 </div>
                 <div>
                     <button type="button" id="boton4">Agregar al carrito</button>
@@ -106,11 +106,11 @@
             <div class="container2">
                 <div class="product">
                     <h2><?php echo $producto5["nombre"]; ?></h2>
-                    <?php echo $producto5["precio"]; ?> <br>
+                    <p>Precio <?php echo $producto5["precio"]; ?> <br></p>
                     <?php echo $producto5["descripcion"]; ?> <br>
                 </div>
                 <div class="product_image">
-                    <img src="https://picsum.photos/id/1019/200/200" alt="imagen5">
+                    <img src="https://picsum.photos/id/1019/1000/1000" alt="imagen5">
                 </div>
                 <div>
                     <button type="button" id="boton5">Agregar al carrito</button>

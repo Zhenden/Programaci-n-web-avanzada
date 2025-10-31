@@ -86,7 +86,7 @@ const estructura = {
         "Clase práctica 1": {
             "Actividad 1": {
                 github: "https://github.com/Zhenden/Programaci-n-web-avanzada/tree/c894893e0ef18629102be4373c0c7efee83c44dc/Clase%20practica%201/Actividad%201",
-                vista: "Clase%20practica%201/Actividad%201/curriculum%20vitae.html"
+                vista: "Semana 1/Clase practica 1/Actividad 1/curriculum vitae.html"
             },
             "Actividad 2": {
                 github: "https://github.com/Zhenden/Programaci-n-web-avanzada/tree/c894893e0ef18629102be4373c0c7efee83c44dc/Clase%20practica%201/Actividad%202",
@@ -184,8 +184,7 @@ const estructura = {
     "Semana 3": {
         "Clase práctica 3": {
             "Actividad 1": {
-                github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/8b09fddb32777b12c5f0ae493f980e8923104fbd/Semana%203/Clase%20practica%203/index.php",
-                vista: "Semana 3/Clase práctica 3/index.php"
+                github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/a92c9ec50b04a3e63524926d139569d3aab3331a/Semana%203/Clase%20practica%203/index.php",
             }
         },
         "Tarea 3": {
@@ -199,19 +198,15 @@ const estructura = {
             },
             "Ejercicio 3": {
                 github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/8b09fddb32777b12c5f0ae493f980e8923104fbd/Semana%203/Tarea%20practica%203/ejercicio-3/ejercicio-3.php",
-                vista: "Semana 3/Tarea practica 3/ejercicio-3/ejercicio-3.php"
             },
             "Ejercicio 4": {
                 github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/8b09fddb32777b12c5f0ae493f980e8923104fbd/Semana%203/Tarea%20practica%203/ejercicio-4/ejercicio-4.php",
-                vista: "Semana 3/Tarea practica 3/ejercicio-4/ejercicio-4.php"
             },
             "Ejercicio 5": {
                 github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/8b09fddb32777b12c5f0ae493f980e8923104fbd/Semana%203/Tarea%20practica%203/ejercicio-5/ejercicio-5.php",
-                vista: "Semana 3/Tarea practica 3/ejercicio-5/ejercicio-5.php"
             },
             "Ejercicio 6": {
                 github: "https://github.com/Zhenden/Programaci-n-web-avanzada/blob/8b09fddb32777b12c5f0ae493f980e8923104fbd/Semana%203/Tarea%20practica%203/ejercicio-6/login.php",
-                vista: "Semana 3/Tarea practica 3/ejercicio-6/login.php"
             }    
         }
     }
@@ -244,6 +239,12 @@ function crearAccordion(data) {
                 <a href="${contenido.github}" target="_blank">Github</a>
                 <a href="${contenido.vista}" target="_blank">Vista completa</a>
                 <iframe src="${contenido.vista}" class="content-frame"></iframe>
+            `;
+            content.innerHTML = links;
+        } else if (contenido.github) {
+            const links = `
+                <p><b>Github de la carpeta con la página web</b></p>
+                <a href="${contenido.github}" target="_blank">Github</a>
             `;
             content.innerHTML = links;
         }
