@@ -32,18 +32,18 @@ class Libro {
     /**
      * Agregar un nuevo libro
      */
-    public function agregar($titulo, $autor, $isbn, $descripcion, $total_copias, $disponible) {
-        $stmt = $this->conn->prepare("INSERT INTO {$this->table} (titulo, autor, isbn, descripcion, total_copias, disponible) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param('ssssii', $titulo, $autor, $isbn, $descripcion, $total_copias, $disponible);
+    public function agregar($titulo, $autor, $total_copias, $disponible) {
+        $stmt = $this->conn->prepare("INSERT INTO {$this->table} (titulo, autor, total_copias, disponible) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param('ssssii', $titulo, $autor, $total_copias, $disponible);
         return $stmt->execute();
     }
 
     /**
      * Actualizar un libro
      */
-    public function actualizar($id, $titulo, $autor, $isbn, $descripcion, $total_copias, $disponible) {
-        $stmt = $this->conn->prepare("UPDATE {$this->table} SET titulo=?, autor=?, isbn=?, descripcion=?, total_copias=?, disponible=? WHERE id=?");
-        $stmt->bind_param('ssssiis', $titulo, $autor, $isbn, $descripcion, $total_copias, $disponible, $id);
+    public function actualizar($id, $titulo, $autor, $total_copias, $disponible) {
+        $stmt = $this->conn->prepare("UPDATE {$this->table} SET titulo=?, autor=?, total_copias=?, disponible=? WHERE id=?");
+        $stmt->bind_param('ssiis', $titulo, $autor, $total_copias, $disponible, $id);
         return $stmt->execute();
     }
 

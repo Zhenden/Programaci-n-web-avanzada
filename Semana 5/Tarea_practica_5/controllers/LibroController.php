@@ -26,16 +26,16 @@ class LibroController {
     /**
      * Agregar un nuevo libro
      */
-    public function agregar($titulo, $autor, $isbn, $descripcion, $total_copias) {
+    public function agregar($titulo, $autor, $total_copias) {
         $disponible = $total_copias; // Al agregar, todas las copias están disponibles
-        return $this->libroModel->agregar($titulo, $autor, $isbn, $descripcion, $total_copias, $disponible);
+        return $this->libroModel->agregar($titulo, $autor, $total_copias, $disponible);
     }
 
     /**
      * Actualizar información de un libro
      */
-    public function actualizar($id, $titulo, $autor, $isbn, $descripcion, $total_copias, $disponible) {
-        return $this->libroModel->actualizar($id, $titulo, $autor, $isbn, $descripcion, $total_copias, $disponible);
+    public function actualizar($id, $titulo, $autor, $total_copias, $disponible) {
+        return $this->libroModel->actualizar($id, $titulo, $autor, $total_copias, $disponible);
     }
 
         public function editar($id, $titulo, $autor, $disponible)
@@ -54,3 +54,4 @@ class LibroController {
         return $this->libroModel->eliminar($id);
     }
 }
+?>

@@ -43,8 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['prestamo_id'], $_POST
             $libro_id,
             $libro['titulo'],
             $libro['autor'],
-            $libro['isbn'],
-            $libro['descripcion'],
             $libro['total_copias'],
             $nuevoDisponible
         );
