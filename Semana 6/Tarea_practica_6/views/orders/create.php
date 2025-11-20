@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="../assets/css/styles.css">
+
 <div class="card fade-in">
     <h2 class="mb-2">Crear Nuevo Pedido</h2>
     

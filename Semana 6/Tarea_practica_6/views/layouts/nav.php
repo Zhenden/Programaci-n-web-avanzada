@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="../assets/css/styles.css">
+
 <nav>
   <ul>
     <li><a href="index.php">Home</a></li>

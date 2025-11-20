@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="../assets/css/styles.css">
+
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1>Comentarios por Plato</h1>
@@ -92,23 +94,3 @@
         </div>
     </div>
 </div>
-
-<style>
-.comment-text {
-    max-width: 400px;
-    max-height: 100px;
-    overflow-y: auto;
-    word-wrap: break-word;
-}
-
-.table th {
-    border-top: none;
-    font-weight: 600;
-    color: #495057;
-}
-
-.comment-actions .btn {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.8rem;
-}
-</style>

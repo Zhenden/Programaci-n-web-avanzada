@@ -1,6 +1,6 @@
 </main>
     
-    <footer class="footer">
+    <footer style="text-align: center; padding: 1rem; background-color: #2c3e50; color: white; margin-top: 2rem; position: fixed; width: 100%; bottom: 0;">
         <p>&copy; 2024 Hotel Luxury - Sistema de Reservas. Todos los derechos reservados.</p>
     </footer>
     

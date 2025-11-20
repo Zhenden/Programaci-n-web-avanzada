@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="../assets/css/styles.css">
 
 <div class="card fade-in">
     <div class="d-flex justify-content-between align-items-center mb-2">

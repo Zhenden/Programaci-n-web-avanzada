@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="../assets/css/styles.css">
+
 <div class="card fade-in">
     <h2 class="text-center mb-2">Iniciar Sesión</h2>
     
@@ -23,7 +25,7 @@
         <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
     </form>
     
-    <p class="text-center mt-2">
-        ¿No tienes una cuenta? <a href="index.php?action=register">Regístrate aquí</a>
+    <p class="text-center">
+        ¿No tienes una cuenta? <a href="index.php?action=register" class="btn btn-danger mt-2">Regístrate aquí</a>
     </p>
 </div>

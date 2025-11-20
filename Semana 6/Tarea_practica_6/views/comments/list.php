@@ -1,8 +1,9 @@
+<link rel="stylesheet" href="../assets/css/styles.css">
 
 <div id="comments-section" class="comments-section mt-4">
     <div class="card">
         <div class="card-header">
-            <h3>Comentarios</h3>
+            <h3><i class="fas fa-comments"></i> Comentarios</h3>
         </div>
         <div class="card-body">
             <?php
@@ -16,7 +17,7 @@
             
             <?php if (SessionManager::get('user_id')): ?>
                 <!-- Formulario para agregar comentario -->
-                <div class="comment-form mb-4">
+                <div class="comment-form">
                     <form method="POST" action="index.php?action=comments/create" class="comment-form">
                         <input type="hidden" name="dish_id" value="<?= htmlspecialchars($dish['id'] ?? $_GET['dish_id'] ?? '') ?>">
                         <input type="hidden" name="csrf_token" value="<?= SessionManager::get('csrf_token') ?>">
@@ -24,7 +25,7 @@
                         <input type="hidden" name="sort" value="<?= htmlspecialchars($_GET['sort'] ?? '') ?>">
                         
                         <div class="form-group">
-                            <label for="comment">Agregar comentario:</label>
+                            <label for="comment"><i class="fas fa-edit"></i> Agregar comentario:</label>
                             <textarea 
                                 name="comment" 
                                 id="comment" 
@@ -38,7 +39,7 @@
                         </div>
                         
                         <button type="submit" class="btn btn-primary btn-sm">
-                            <i class="fas fa-comment"></i> Comentar
+                            <i class="fas fa-comment"></i> Publicar Comentario
                         </button>
                     </form>
                 </div>
@@ -52,14 +53,14 @@
             <!-- Lista de comentarios -->
             <div class="comments-list">
                 <?php if (empty($comments)): ?>
-                    <div class="no-comments text-center text-muted py-4">
+                    <div class="no-comments">
                         <i class="fas fa-comments fa-3x mb-3"></i>
                         <p>No hay comentarios aún. Sé el primero en comentar.</p>
                     </div>
                 <?php else: ?>
                     <?php foreach ($comments as $comment): ?>
-                        <div id="comment-<?= htmlspecialchars($comment['id']) ?>" class="comment-item mb-3 p-3 border rounded" data-comment-id="<?= htmlspecialchars($comment['id']) ?>">
-                            <div class="comment-header d-flex justify-content-between align-items-start mb-2">
+                        <div id="comment-<?= htmlspecialchars($comment['id']) ?>" class="comment-item" data-comment-id="<?= htmlspecialchars($comment['id']) ?>">
+                            <div class="comment-header">
                                 <div class="comment-author">
                                     <strong><?= htmlspecialchars($comment['username']) ?></strong>
                                     <small class="text-muted ml-2">
@@ -71,16 +72,16 @@
                                 <?php if (SessionManager::get('user_id') == $comment['user_id'] || SessionManager::get('role_name') == 'Administrator'): ?>
                                     <div class="comment-actions">
                                         <?php if (SessionManager::get('user_id') == $comment['user_id']): ?>
-                                            <button type="button" class="btn btn-sm btn-outline-primary" 
+                                            <button type="button" class="btn btn-outline-primary btn-sm" 
                                                     onclick="editComment(<?= htmlspecialchars($comment['id']) ?>)"
                                                     title="Editar comentario">
-                                                <i class="fas fa-edit"></i>
+                                                <i class="fas fa-edit"></i> Editar
                                             </button>
                                         <?php endif; ?>
-                                        <button type="button" class="btn btn-sm btn-outline-danger" 
+                                        <button type="button" class="btn btn-outline-danger btn-sm" 
                                                 onclick="deleteComment(<?= htmlspecialchars($comment['id']) ?>)"
                                                 title="Eliminar comentario">
-                                            <i class="fas fa-trash"></i>
+                                            <i class="fas fa-trash"></i> Eliminar
                                         </button>
                                     </div>
                                 <?php endif; ?>
@@ -92,16 +93,18 @@
                             
                             <!-- Formulario de edición (oculto por defecto) -->
                             <div id="comment-edit-<?= htmlspecialchars($comment['id']) ?>" class="comment-edit-form" style="display: none;">
-                                <form method="POST" action="index.php?action=comments/update" class="mt-2">
+                                <form method="POST" action="index.php?action=comments/update">
                                     <input type="hidden" name="comment_id" value="<?= htmlspecialchars($comment['id']) ?>">
                                     <input type="hidden" name="csrf_token" value="<?= SessionManager::get('csrf_token') ?>">
                                     <input type="hidden" name="page" value="<?= htmlspecialchars($_GET['page'] ?? '') ?>">
                                     <input type="hidden" name="sort" value="<?= htmlspecialchars($_GET['sort'] ?? '') ?>">
                                     
                                     <div class="form-group">
+                                        <label for="edit-comment-<?= htmlspecialchars($comment['id']) ?>">Editar comentario:</label>
                                         <textarea 
                                             name="comment" 
-                                            class="form-control form-control-sm" 
+                                            id="edit-comment-<?= htmlspecialchars($comment['id']) ?>"
+                                            class="form-control" 
                                             rows="3" 
                                             maxlength="1000" 
                                             required
@@ -109,11 +112,11 @@
                                         <small class="form-text text-muted">Máximo 1000 caracteres</small>
                                     </div>
                                     
-                                    <div class="btn-group btn-group-sm">
-                                        <button type="submit" class="btn btn-primary">
+                                    <div class="btn-group">
+                                        <button type="submit" class="btn btn-primary btn-sm">
                                             <i class="fas fa-save"></i> Guardar
                                         </button>
-                                        <button type="button" class="btn btn-secondary" onclick="cancelEdit(<?= htmlspecialchars($comment['id']) ?>)">
+                                        <button type="button" class="btn btn-secondary btn-sm" onclick="cancelEdit(<?= htmlspecialchars($comment['id']) ?>)">
                                             <i class="fas fa-times"></i> Cancelar
                                         </button>
                                     </div>
@@ -182,6 +185,9 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
                 newCommentElement.classList.remove('comment-highlight');
             }, 3000);
+            
+            // Mostrar notificación
+            showNotification('¡Comentario publicado exitosamente!', 'success');
         }
     }
     
@@ -194,7 +200,15 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
                 updatedCommentElement.classList.remove('comment-updated');
             }, 3000);
+            
+            // Mostrar notificación
+            showNotification('Comentario actualizado correctamente', 'success');
         }
+    }
+    
+    // Si se eliminó un comentario
+    if (deletedCommentId) {
+        showNotification('Comentario eliminado correctamente', 'success');
     }
 });
 
@@ -205,28 +219,6 @@ function showNotification(message, type) {
     notification.className = `notification notification-${type}`;
     notification.textContent = message;
     
-    // Estilos CSS para la notificación
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        padding: 15px 20px;
-        border-radius: 5px;
-        color: white;
-        font-weight: bold;
-        z-index: 1000;
-        transition: all 0.3s ease;
-        max-width: 300px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    `;
-    
-    // Colores según el tipo
-    if (type === 'success') {
-        notification.style.backgroundColor = '#28a745';
-    } else if (type === 'error') {
-        notification.style.backgroundColor = '#dc3545';
-    }
-    
     // Agregar al body
     document.body.appendChild(notification);
     
@@ -234,133 +226,37 @@ function showNotification(message, type) {
     setTimeout(() => {
         notification.style.opacity = '0';
         setTimeout(() => {
-            document.body.removeChild(notification);
+            if (document.body.contains(notification)) {
+                document.body.removeChild(notification);
+            }
         }, 300);
     }, 5000);
 }
+
+// Contador de caracteres para el textarea
+document.addEventListener('DOMContentLoaded', function() {
+    const commentTextarea = document.getElementById('comment');
+    if (commentTextarea) {
+        // Crear contador
+        const counter = document.createElement('div');
+        counter.className = 'form-text';
+        counter.style.textAlign = 'right';
+        counter.style.marginTop = '0.25rem';
+        commentTextarea.parentNode.appendChild(counter);
+        
+        // Actualizar contador
+        function updateCounter() {
+            const length = commentTextarea.value.length;
+            counter.textContent = `${length}/1000 caracteres`;
+            counter.style.color = length > 900 ? '#e74c3c' : '#bdc3c7';
+        }
+        
+        // Event listeners
+        commentTextarea.addEventListener('input', updateCounter);
+        commentTextarea.addEventListener('focus', updateCounter);
+        
+        // Inicializar
+        updateCounter();
+    }
+});
 </script>
-
-<style>
-.comments-section {
-    margin-top: 2rem;
-}
-
-.comment-form {
-    background-color: #f8f9fa;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    margin-bottom: 1.5rem;
-}
-
-.comment-item {
-    background-color: #ffffff;
-    border: 1px solid #e9ecef;
-    transition: all 0.3s ease;
-}
-
-.comment-item:hover {
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    transform: translateY(-1px);
-}
-
-.comment-highlight {
-    animation: highlight 3s ease-in-out;
-    border-left: 4px solid #28a745;
-    background-color: #f8fff8;
-}
-
-.comment-updated {
-    animation: highlight 3s ease-in-out;
-    border-left: 4px solid #ffc107;
-    background-color: #fffbf0;
-}
-
-@keyframes highlight {
-    0% {
-        background-color: #e8f5e8;
-        transform: scale(1.02);
-    }
-    50% {
-        background-color: #f0f8f0;
-        transform: scale(1.01);
-    }
-    100% {
-        background-color: transparent;
-        transform: scale(1);
-    }
-}
-
-.comment-author {
-    font-size: 0.9rem;
-}
-
-.comment-content {
-    font-size: 0.95rem;
-    line-height: 1.5;
-}
-
-.no-comments {
-    background-color: #f8f9fa;
-    border-radius: 0.5rem;
-}
-
-.comment-actions .btn {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.8rem;
-}
-
-.comment-edit-form {
-    background-color: #f8f9fa;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    border: 1px solid #dee2e6;
-}
-
-.comment-edit-form .form-control {
-    font-size: 0.9rem;
-}
-
-.comment-edit-form .btn-group {
-    margin-top: 0.5rem;
-}
-
-/* Estilos para notificaciones */
-.notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 15px 20px;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-    z-index: 1000;
-    transition: all 0.3s ease;
-    max-width: 300px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-.notification-success {
-    background-color: #28a745;
-}
-
-.notification-error {
-    background-color: #dc3545;
-}
-
-/* Animación de entrada para notificaciones */
-@keyframes slideInRight {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-.notification {
-    animation: slideInRight 0.3s ease-out;
-}
-</style>
-

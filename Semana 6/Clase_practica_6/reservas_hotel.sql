@@ -27,6 +27,13 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `bookings`
 --
 
+CREATE DATABASE IF NOT EXISTS reservas_hotel 
+CHARACTER SET utf8mb4 
+COLLATE utf8mb4_unicode_ci;
+
+-- Usar la base de datos
+USE reservas_hotel;
+
 CREATE TABLE `bookings` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -38,20 +45,6 @@ CREATE TABLE `bookings` (
   `total_price` decimal(10,2) NOT NULL DEFAULT 0.00,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `bookings`
---
-
-INSERT INTO `bookings` (`id`, `user_id`, `room_id`, `booking_date`, `check_in_date`, `check_out_date`, `status`, `total_price`, `created_at`) VALUES
-(1, 4, 1, '2025-01-10', '2025-01-12', '2025-01-15', 'pending', 0.00, '2025-11-20 03:40:04'),
-(2, 5, 3, '2025-01-11', '2025-01-20', '2025-01-25', 'pending', 0.00, '2025-11-20 03:40:04'),
-(3, 6, 2, '2025-01-09', '2025-01-10', '2025-01-12', 'pending', 0.00, '2025-11-20 03:40:04'),
-(4, 4, 5, '2025-01-18', '2025-02-01', '2025-02-05', 'pending', 0.00, '2025-11-20 03:40:04'),
-(5, 5, 4, '2025-01-19', '2025-02-10', '2025-02-12', 'pending', 0.00, '2025-11-20 03:40:04'),
-(6, 25, 1, '2025-11-19', '2025-11-20', '2025-11-30', 'cancelled', 450.00, '2025-11-20 03:57:00'),
-(7, 25, 4, '2025-11-19', '2025-11-20', '2025-11-30', 'cancelled', 450.00, '2025-11-20 04:09:06'),
-(8, 20, 6, '2025-11-19', '2025-11-20', '2025-11-21', 'confirmed', 676767.00, '2025-11-20 04:19:05');
 
 -- --------------------------------------------------------
 
@@ -154,6 +147,20 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `role_id`) VALUES
 (25, 'Zhenden', 'ax078546@gmail.com', '$2y$10$hUDxhIKWo9cvuHfZa56UA.qaDzlY7Gnv9gsegTNSNPfE2fT6oY1D2', 4);
 
 --
+-- Ahora insertamos datos válidos en bookings que referencian usuarios existentes
+--
+
+INSERT INTO `bookings` (`id`, `user_id`, `room_id`, `booking_date`, `check_in_date`, `check_out_date`, `status`, `total_price`, `created_at`) VALUES
+(1, 20, 1, '2025-01-10', '2025-01-12', '2025-01-15', 'pending', 135.00, '2025-11-20 03:40:04'),
+(2, 21, 3, '2025-01-11', '2025-01-20', '2025-01-25', 'pending', 600.00, '2025-11-20 03:40:04'),
+(3, 22, 2, '2025-01-09', '2025-01-10', '2025-01-12', 'pending', 130.00, '2025-11-20 03:40:04'),
+(4, 20, 5, '2025-01-18', '2025-02-01', '2025-02-05', 'pending', 560.00, '2025-11-20 03:40:04'),
+(5, 21, 4, '2025-01-19', '2025-02-10', '2025-02-12', 'pending', 90.00, '2025-11-20 03:40:04'),
+(6, 25, 1, '2025-11-19', '2025-11-20', '2025-11-30', 'cancelled', 450.00, '2025-11-20 03:57:00'),
+(7, 25, 4, '2025-11-19', '2025-11-20', '2025-11-30', 'cancelled', 450.00, '2025-11-20 04:09:06'),
+(8, 20, 6, '2025-11-19', '2025-11-20', '2025-11-21', 'confirmed', 676767.00, '2025-11-20 04:19:05');
+
+--
 -- Índices para tablas volcadas
 --
 
@@ -233,14 +240,21 @@ ALTER TABLE `users`
 -- Filtros para la tabla `bookings`
 --
 ALTER TABLE `bookings`
-  ADD CONSTRAINT `bookings_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `bookings_ibfk_2` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id`);
+  ADD CONSTRAINT `bookings_ibfk_1` 
+  FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) 
+  ON DELETE CASCADE ON UPDATE CASCADE,
+  
+  ADD CONSTRAINT `bookings_ibfk_2` 
+  FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id`) 
+  ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `users`
 --
 ALTER TABLE `users`
-  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`);
+  ADD CONSTRAINT `users_ibfk_1` 
+  FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) 
+  ON DELETE RESTRICT ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

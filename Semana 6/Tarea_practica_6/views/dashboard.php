@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="../assets/css/styles.css">
 
 <div class="dashboard fade-in">
     <div class="welcome-section">

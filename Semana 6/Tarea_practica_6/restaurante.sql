@@ -26,6 +26,12 @@ SET time_zone = "+00:00";
 --
 -- Estructura de tabla para la tabla `comments`
 --
+CREATE DATABASE IF NOT EXISTS restaurante 
+CHARACTER SET utf8mb4 
+COLLATE utf8mb4_unicode_ci;
+
+-- Usar la base de datos
+USE restaurante;
 
 CREATE TABLE `comments` (
   `id` int(11) NOT NULL,
